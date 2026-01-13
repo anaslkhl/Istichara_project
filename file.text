@@ -1,0 +1,15 @@
+This project is set up to run a PHP application using Docker.
+
+The `docker-compose.yml` file defines four services:
+- `nginx`: A web server that serves the application.
+- `php`: The PHP application itself, with Composer installed.
+- `mysql`: A MySQL database.
+- `phpmyadmin`: A web interface for managing the MySQL database.
+
+To use this setup:
+1. Build and start the containers: `docker-compose up -d --build`
+2. Access the application in your browser at `http://localhost:8080`.
+3. Access phpMyAdmin in your browser at `http://localhost:8081`.
+4. To use Composer, you can run commands inside the `php` container. For example, to install a new package: `docker-compose exec php composer require vendor/package`
+5. The `src` directory is shared between your local machine and the `php` and `nginx` containers. Any changes you make to the files in this directory will be reflected in the running containers.
+    
