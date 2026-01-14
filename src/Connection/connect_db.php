@@ -6,7 +6,7 @@ class Database
     private ?PDO $pdo;
 
     private string $host = 'mysql';
-    private string $dbname = 'IsticharasqlContainer';
+    private string $dbname = 'IsticharaDB';
     private string $username = 'root';
     private string $password = 'camus';
 

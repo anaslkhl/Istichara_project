@@ -1,12 +1,14 @@
 <?php
 
 
-$routers = new Routing;
 
-$routers->get('/', '../Public/index');
-$routers->get('/', '../Public/avocat');
-$routers->get('/', '../Public/huisser');
+$router->get('/', 'personController@main');
 
-$routers->get('/', '../Entities/Person');
-$routers->get('/', '../Entities/Avocat');
-$routers->get('/', '../Entities/Huisser');
+$router->get('/admin', 'personController@admin');
+$router->get('/main', 'personController@main');
+$router->get('/form', 'personController@form');
+$router->get('/professionals', 'personController@professionals');
+
+$router->get('/avocat', 'avocatController@index');
+$router->get('/huisser', 'huisserController@index');
+$router->get('/person', 'personController@index');

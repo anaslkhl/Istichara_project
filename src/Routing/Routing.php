@@ -1,12 +1,14 @@
 <?php
 
 
-class Routing {
+class Routing
+{
 
     public $routes = [
-        'GET' => []
+        'GET' => [],
+        'POST'=> []
     ];
-    
+
 
 
     public static function load($file)
@@ -19,14 +21,28 @@ class Routing {
 
     public function get($url, $controller)
     {
-        $this->routes['GET'][$url] = $controller;
+        $this->routes['GET'][$this->normalize($url)] = $controller;
     }
 
-    public function direct($url, $requestType){
+    public function post(string $url,string $controller)
+    {
+        $this->routes['POST'][$this->normalize($url)] = $controller;
+    }
 
-        if(array_key_exists($url, $this->routes[$requestType]))
-        {
+    public function direct(string $url,string $requestType)
+    {
+
+        if (array_key_exists( $url, $this->routes[$requestType])) {
             return $this->routes[$requestType][$url];
         }
+    }
+
+    private function normalize(string $url): string
+    {
+        $url = parse_url($url, PHP_URL_PATH);
+        $url = str_replace('/index.php', '', $url);
+        $url = rtrim($url, '/');
+
+        return $url === '' ? '/' : $url;
     }
 }

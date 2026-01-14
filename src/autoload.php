@@ -3,9 +3,27 @@
 function my_autoload($my_class){
 
 
-    $file = __DIR__ . '/includes/' . '$my_clas' . '.php';
+    $paths = [
+        __DIR__ . '/Controllers/',
+        __DIR__ . '/Services/',
+        __DIR__ . '/Public/',
+        __DIR__ . '/Connection/',
+        __DIR__ . '/Repository/',
+        __DIR__ . '/Entities/',
+        __DIR__ . '/Routing/',
+        __DIR__ . '/Routing/'
+    ];
 
-    if(file_exists($file)){
-        require_once $file;
+    foreach($paths as $path){
+
+        $file = $path . $my_class . '.php';
+
+        if(file_exists($file)){
+            require_once($file);
+            return;
+        }
     }
+
 }
+
+spl_autoload_register('my_autoload');
