@@ -35,4 +35,3 @@ if (class_exists($controller)) {
 }
 
 
-echo 'hello everyone';

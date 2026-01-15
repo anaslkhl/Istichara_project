@@ -1,14 +1,18 @@
-<header class="navbar">
-    <div class="navbar-left">
-        <span class="logo">ISTICHARA</span>
-    </div>
+<nav class="navbar">
+    <div class="container">
+        <a href="/main" class="logo">ISTICHARA</a>
 
-    <nav class="navbar-links">
-        <a href="/main">Dashboard</a>
-        <a href="/person">Persons</a>
-        <a href="/avocat">Avocats</a>
-        <a href="/huisser">Huissiers</a>
-        <a href="/professionals">Professionals</a>
-        <a href="/form" class="btn-primary">Add</a>
-    </nav>
-</header>
+        <ul class="nav-links">
+            <li><a href="/main">Dashboard</a></li>
+            <li><a href="/professionals">Professionals</a></li>
+            <li><a href="/form">Add Person</a></li>
+       
+        </ul>
+
+        <div class="burger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</nav>

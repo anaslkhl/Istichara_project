@@ -10,12 +10,20 @@ class personController
         $this->service = new PersonService();
     }
 
-    public function index()
+    public function professionals()
     {
         $persons = $this->service->getAll();
-        require __DIR__ . '/../Public/person.php';
+        require __DIR__ . '/../Public/professionals.php';
+    }
+    public function huisser()
+    {
+        require __DIR__ . '/../Public/huisser.php';
     }
 
+    public function avocat() 
+    {
+        require __DIR__ . '/../Public/avocat.php';
+    }
     public function create()
     {
         require __DIR__ . '/../Public/form.php';
@@ -23,7 +31,7 @@ class personController
 
     public function main()
     {
-        require __DIR__ . '../Public/main.php';
+        require __DIR__ . '/../Public/main.php';
     }
 
     public function store()

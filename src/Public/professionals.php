@@ -1,59 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professionnels ISTICHARA</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">ISTICHARA</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="professionals.html" class="active">Professionnels</a></li>
-                <li><a href="admin.html">Admin</a></li>
-                <li><a href="form.html">Ajouter</a></li>
-            </ul>
-            <div class="burger">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </div>
-    </nav>
+
+    <?php require_once "./navbar.php";
+        $person = new personService();
+        $persons = $person->getAll();
+    
+    ?>
 
     <div class="container">
         <h2>Liste des professionnels</h2>
 
         <!-- Filters -->
-        <div class="filters">
-            <input type="text" placeholder="Recherche par nom..." id="searchName">
-            <select id="filterType">
+        <form method="GET" class="filters">
+            <input type="text" name="search" placeholder="Recherche par nom..."
+                value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+
+            <select name="type">
                 <option value="">Tous</option>
-                <option value="avocat">Avocat</option>
-                <option value="huissier">Huissier</option>
+                <option value="avocat" <?= (isset($_GET['type']) && $_GET['type'] == 'Avocat') ? 'selected' : '' ?>>Avocat</option>
+                <option value="huissier" <?= (isset($_GET['type']) && $_GET['type'] == 'Huissier') ? 'selected' : '' ?>>Huissier</option>
             </select>
-        </div>
+
+            <button type="submit" class="btn">Filtrer</button>
+        </form>
+
 
         <!-- Cards -->
         <div class="cards">
-            <div class="card">
-                <h3>Mehdi El Khadir</h3>
-                <p>Avocat - Droit Civil</p>
-                <p>10 ans d'expérience</p>
-                <p>Tarif horaire: 500 MAD</p>
-                <p>Consultation en ligne: Oui</p>
-            </div>
-            <div class="card">
-                <h3>Youssef Benali</h3>
-                <p>Huissier - Signification</p>
-                <p>5 ans d'expérience</p>
-                <p>Tarif horaire: 400 MAD</p>
-            </div>
+            <?php foreach ($persons as $person): ?>
+                <div class="card">
+                    <div class="card-header">
+                        <h3><?= htmlspecialchars($person['fullname']) ?></h3>
+                        <span class="role-badge">
+                            <?= !empty($person['type_actes']) ? 'Avocat' : 'Huissier' ?>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Spécialité:</strong> <?= htmlspecialchars($person['speciality'] ?? $person['type_actes']) ?></p>
+                        <p><strong>Expérience:</strong> <?= htmlspecialchars($person['experience']) ?> ans</p>
+                        <p><strong>Tarif:</strong> <?= htmlspecialchars($person['tarif']) ?> MAD</p>
+                        <?php if (!empty($person['consultate_online'])): ?>
+                            <p><strong>Consultation en ligne:</strong> <?= ucfirst($person['consultate_online']) ?></p>
+                        <?php endif; ?>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/person/<?= $person['id'] ?>" class="btn-view">Voir profil</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
+
 
         <!-- Pagination -->
         <div class="pagination">
@@ -66,12 +72,8 @@
     </div>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 ISTICHARA. Tous droits réservés.</p>
-            <p>Contact: contact@istichara.ma</p>
-        </div>
-    </footer>
+
+    <?php require_once "./footer.php"; ?>
 
     <script>
         // Burger menu toggle
@@ -83,4 +85,5 @@
         });
     </script>
 </body>
+
 </html>
