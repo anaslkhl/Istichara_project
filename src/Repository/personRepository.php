@@ -21,7 +21,7 @@ class personRepository
                                 VALUES (?,?,?,?,?,?,?,?,?)');
 
             $stmt->execute([
-                $person['name'],
+                $person['fullname'],
                 $person['email'],
                 $person['phone'],
                 $person['experience'],
@@ -31,7 +31,7 @@ class personRepository
                 $person['type_actes'],
                 $person['ville_id']
             ]);
-
+            header('location: professionals');
             return true;
         } catch (PDOException $er) {
             print('ErRor : ' . $er->getMessage());

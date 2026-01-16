@@ -12,9 +12,9 @@
     <!-- Navbar -->
 
     <?php require_once "./navbar.php";
-        $person = new personService();
-        $persons = $person->getAll();
-    
+    $person = new personService();
+    $persons = $person->getAll();
+
     ?>
 
     <div class="container">
@@ -22,7 +22,8 @@
 
         <!-- Filters -->
         <form method="GET" class="filters">
-            <input type="text" name="search" placeholder="Recherche par nom..."
+            <input type="hidden" name="id">
+            <input type="text" id="searching" name="search" placeholder="Recherche par nom..."
                 value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
 
             <select name="type">
@@ -42,7 +43,7 @@
                     <div class="card-header">
                         <h3><?= htmlspecialchars($person['fullname']) ?></h3>
                         <span class="role-badge">
-                            <?= !empty($person['type_actes']) ? 'Avocat' : 'Huissier' ?>
+                            <?= ($person['speciality']) ?>
                         </span>
                     </div>
                     <div class="card-body">
@@ -53,9 +54,11 @@
                             <p><strong>Consultation en ligne:</strong> <?= ucfirst($person['consultate_online']) ?></p>
                         <?php endif; ?>
                     </div>
-                    <div class="card-footer">
+                    <form class="card-footer" method="POST" action="delete">
+                        <input type="hidden" name="delete" value="<?= htmlentities($person['id']) ?>">
+                        <button type="submit" for="delete" class="del">Delete</button>
                         <a href="/person/<?= $person['id'] ?>" class="btn-view">Voir profil</a>
-                    </div>
+                    </form>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -84,6 +87,8 @@
             burger.classList.toggle('toggle');
         });
     </script>
+
+    <script src="./script//script.js"></script>
 </body>
 
 </html>

@@ -22,13 +22,13 @@ CREATE TABLE ville (
 
 
 
-SELECT FROM nom joueur 
+SELECT nom FROM  joueur 
 
 
 SELECT * FROM joueur
 JOIN equipe ON joueur.equipe_id = equipe.id
 
-
+    
 
 SELECT * FROM joueur WHERE equipe_id IS NULL
 

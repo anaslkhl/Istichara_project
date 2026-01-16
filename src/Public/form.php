@@ -21,7 +21,8 @@ $villes = $villeRepo->getAll();
     <div class="container">
         <h2>Ajouter un professionnel</h2>
 
-        <form action="/person/store" method="POST" id="dynamicForm">
+        <form action="store" method="POST" id="dynamicForm">
+            
             <label for="role">Type de professionnel:</label>
             <select id="role" name="role" required>
                 <option value="">Sélectionner</option>
@@ -49,7 +50,7 @@ $villes = $villeRepo->getAll();
                 <select name="ville_id" required>
                     <option value="">Sélectionner la ville</option>
                     <?php foreach ($villes as $ville): ?>
-                        <option value="<?= $ville['id'] ?>"><?= htmlspecialchars($ville['name']) ?></option>
+                        <option value="<?= $ville['id'] ?>"><?= htmlspecialchars($ville['nom']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -65,8 +66,8 @@ $villes = $villeRepo->getAll();
 
                 <label>Consultation en ligne:</label>
                 <select name="consultate_online">
-                    <option>Oui</option>
-                    <option>Non</option>
+                    <option>yes</option>
+                    <option>no</option>
                 </select>
             </div>
 
@@ -74,9 +75,9 @@ $villes = $villeRepo->getAll();
             <div id="huissierFields" class="dynamic-fields" style="display:none;">
                 <label>Type d'actes:</label>
                 <select name="type_actes">
-                    <option>Signification</option>
-                    <option>Exécution</option>
-                    <option>Constats</option>
+                    <option>signification</option>
+                    <option>excecution</option>
+                    <option>constat</option>
                 </select>
             </div>
 

@@ -29,6 +29,11 @@ class personController
         require __DIR__ . '/../Public/form.php';
     }
 
+    public function delete()
+    {
+        require __DIR__ . '/../Public/check.php'; 
+    }
+
     public function main()
     {
         require __DIR__ . '/../Public/main.php';
@@ -37,7 +42,6 @@ class personController
     public function store()
     {
         $this->service->store($_POST);
-        header('Location: /person');
         exit;
     }
 }

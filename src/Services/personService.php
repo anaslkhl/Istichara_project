@@ -39,7 +39,15 @@ class personService
 
     public function Store($data)
     {
+       
         if ($this->checkData($data)) {
+
+            if($data['role'] == 'Avocat'){
+                $data['type_actes'] = null;
+            }
+            else if($data['role'] == 'Huissier'){
+
+            }
 
             $person = [
 
@@ -52,7 +60,6 @@ class personService
                 'consultate_online' => $data['consultate_online'],
                 'type_actes' => $data['type_actes'],
                 'ville_id' => $data['ville_id'],
-                'id' => $data['id']
 
             ];
             return $this->repository->createPerson($person);

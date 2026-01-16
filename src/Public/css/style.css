@@ -184,6 +184,16 @@ body {
   padding: 15px 20px;
   text-align: center;
   background: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+}
+.del {
+  background-color: red;
+  color: white; 
+  border: none;
+  height: 35px;
+  width: 120px;
+  border-radius: 10px;
 }
 
 .card-footer .btn-view {
