@@ -1,10 +1,12 @@
 <?php
-require_once "../Repository/villeRepository.php"; 
+require_once "../Repository/villeRepository.php";
 
 $villeRepo = new villeRepository();
-$villes = $villeRepo->getAll(); 
+$villes = $villeRepo->getAll();
 $personRepo = new personRepository();
-$persons = $personRepo->getAllPersons();
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -24,35 +26,35 @@ $persons = $personRepo->getAllPersons();
         <h2>Ajouter un professionnel</h2>
 
         <form action="store" method="POST" id="dynamicForm">
-            
+
             <label for="role">Type de professionnel:</label>
             <select id="role" name="role" required>
-                <option value="<?= $_POST['role'] ?>">Sélectionner</option>
+                <option value="">Sélectionner</option>
                 <option value="avocat">Avocat</option>
                 <option value="huissier">Huissier</option>
             </select>
 
             <div class="common-fields">
                 <label>Nom complet:</label>
-                <input type="text" name="fullname" value="<?= $_POST['fullname'] ?>" required>
+                <input type="text" name="fullname" value="<?= $persons['fullname'] ?? '' ?>" required>
 
                 <label>Email:</label>
-                <input type="email" name="email" value="<?= $_POST['email'] ?>" required>
+                <input type="email" name="email" value="<?= $persons['email'] ?? '' ?>" required>
 
                 <label>Téléphone:</label>
-                <input type="text" name="phone" required>
+                <input type="text" name="phone" value="<?= $persons['phone'] ?? '' ?>" required>
 
                 <label>Expérience (en années):</label>
-                <input type="number" name="experience" required min="0">
+                <input type="number" name="experience" value="<?= $persons['experience'] ?? '' ?>" required min="0">
 
                 <label>Tarif (MAD):</label>
-                <input type="number" name="tarif" required min="0">
+                <input type="number" name="tarif" value="<?= $persons['tarif'] ?? '' ?>" required min="0">
 
                 <label>Ville:</label>
                 <select name="ville_id" required>
                     <option value="">Sélectionner la ville</option>
                     <?php foreach ($villes as $ville): ?>
-                        <option value="<?= $ville['id'] ?>"><?= htmlspecialchars($ville['nom']) ?></option>
+                        <option value="<?= $ville['id'] ?>"><?= htmlspecialchars($ville['nom']) ?? '' ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -83,7 +85,12 @@ $persons = $personRepo->getAllPersons();
                 </select>
             </div>
 
-            <button type="submit" class="btn">Ajouter</button>
+            <form action="update" method="POST">
+                <input type="hidden" name="update_id" value="<?= $persons['id'] ?>">
+                <button type="submit" name="delete" class="del"></button>
+                <button type="submit" name="update" class="update btn"></button>
+            </form>
+
         </form>
     </div>
 

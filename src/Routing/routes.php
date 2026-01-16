@@ -10,6 +10,7 @@ $router->get('/form', 'personController@create');
 $router->post('/store', 'personController@store');
 $router->post('/delete', 'personController@delete');
 $router->post('/update', 'personController@update');
+$router->get('/form/{id}', 'personController@edit');
 $router->get('/professionals', 'personController@professionals');
 
 $router->get('/avocat', 'avocatController@avocat');

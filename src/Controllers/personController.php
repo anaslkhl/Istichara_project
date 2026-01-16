@@ -40,6 +40,13 @@ class personController
         require __DIR__ . '/../Public/form.php';
     }
 
+    public function edit($id)
+    {
+        $presonRepo = new personRepository();
+        $person = $presonRepo->getPerson($id);
+        require __DIR__ . '/../Public/fotm.php';
+    }
+
     public function main()
     {
         require __DIR__ . '/../Public/main.php';

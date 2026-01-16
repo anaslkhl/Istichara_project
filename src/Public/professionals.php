@@ -57,7 +57,7 @@
                     <form class="card-footer" method="POST" action="delete">
                         <input type="hidden" name="delete" value="<?= htmlentities($person['id']) ?>">
                         <button type="submit" for="delete" class="del">Delete</button>
-                        <a href="/person/<?= $person['id'] ?>" class="btn-view">Edit</a>
+                        <a href="/form/<?= $person['id'] ?>" class="btn-view">Edit</a>
                     </form>
                 </div>
             <?php endforeach; ?>

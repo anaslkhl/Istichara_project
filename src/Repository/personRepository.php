@@ -96,4 +96,11 @@ class personRepository
             die;
         }
     }
+
+    public function getPerson($id){
+        $con = $this->db;
+        $stmt = $con->prepare('SELECT * FROM person WHERE id = :id');
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch();
+    }
 }
