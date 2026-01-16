@@ -3,6 +3,8 @@ require_once "../Repository/villeRepository.php";
 
 $villeRepo = new villeRepository();
 $villes = $villeRepo->getAll(); 
+$personRepo = new personRepository();
+$persons = $personRepo->getAllPersons();
 ?>
 
 <!DOCTYPE html>
@@ -25,17 +27,17 @@ $villes = $villeRepo->getAll();
             
             <label for="role">Type de professionnel:</label>
             <select id="role" name="role" required>
-                <option value="">Sélectionner</option>
+                <option value="<?= $_POST['role'] ?>">Sélectionner</option>
                 <option value="avocat">Avocat</option>
                 <option value="huissier">Huissier</option>
             </select>
 
             <div class="common-fields">
                 <label>Nom complet:</label>
-                <input type="text" name="fullname" required>
+                <input type="text" name="fullname" value="<?= $_POST['fullname'] ?>" required>
 
                 <label>Email:</label>
-                <input type="email" name="email" required>
+                <input type="email" name="email" value="<?= $_POST['email'] ?>" required>
 
                 <label>Téléphone:</label>
                 <input type="text" name="phone" required>

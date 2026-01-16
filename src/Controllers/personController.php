@@ -20,7 +20,7 @@ class personController
         require __DIR__ . '/../Public/huisser.php';
     }
 
-    public function avocat() 
+    public function avocat()
     {
         require __DIR__ . '/../Public/avocat.php';
     }
@@ -31,7 +31,13 @@ class personController
 
     public function delete()
     {
-        require __DIR__ . '/../Public/check.php'; 
+        $this->service->delete($_POST['delete']);
+        require __DIR__ . '/../Public/professionals.php';
+    }
+
+    public function update()
+    {
+        require __DIR__ . '/../Public/form.php';
     }
 
     public function main()
