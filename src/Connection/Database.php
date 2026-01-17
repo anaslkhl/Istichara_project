@@ -1,6 +1,11 @@
 <?php
 
 
+namespace Connection;
+
+use PDO;
+use PDOException;
+
 class Database
 {
     private ?PDO $pdo;
@@ -15,9 +20,14 @@ class Database
 
     private function __construct()
     {
-        $dataSourceName = "mysql:host={$this->host};dbname={$this->dbname};setcar=utf8mb4";
-        $this->pdo = new PDO($dataSourceName, $this->username, $this->password);
-        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        try {
+            $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4";
+            $this->pdo = new PDO($dsn, $this->username, $this->password);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die("Database connection failed: " . $e->getMessage());
+        }
     }
 
     public static function getInstance(): Database
