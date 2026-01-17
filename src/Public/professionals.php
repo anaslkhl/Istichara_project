@@ -12,6 +12,7 @@
     <!-- Navbar -->
 
     <?php require_once "./navbar.php";
+    use Services\personService;
     $person = new personService();
     $persons = $person->getAll();
 

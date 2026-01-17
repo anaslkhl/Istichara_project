@@ -1,12 +1,20 @@
 <?php
-require_once "../Repository/villeRepository.php";
+
+$person = $person ?? null;
+$isEdit = $person !== null;
+
+$action = $isEdit ? '/update' : '/store';
+$title  = $isEdit ? 'Modifier un professionnel' : 'Ajouter un professionnel';
+
+use Repository\villeRepository;
 
 $villeRepo = new villeRepository();
 $villes = $villeRepo->getAll();
-$personRepo = new personRepository();
 
-
-
+$personRole = null;
+if ($isEdit) {
+    $personRole = $person['speciality'] ? 'avocat' : ($person['type_actes'] ? 'huissier' : null);
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,82 +23,84 @@ $personRepo = new personRepository();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un professionnel - ISTICHARA</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title><?= $title ?> - ISTICHARA</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
     <?php require_once "navbar.php"; ?>
 
     <div class="container">
-        <h2>Ajouter un professionnel</h2>
+        <h2><?= $title ?></h2>
 
-        <form action="store" method="POST" id="dynamicForm">
+        <form action="<?= $action ?>" method="POST" id="dynamicForm">
 
-            <label for="role">Type de professionnel:</label>
+            <?php if ($isEdit): ?>
+                <input type="hidden" name="id" value="<?= $person['id'] ?>">
+            <?php endif; ?>
+
+            <label>Type de professionnel:</label>
             <select id="role" name="role" required>
                 <option value="">Sélectionner</option>
-                <option value="avocat">Avocat</option>
-                <option value="huissier">Huissier</option>
+                <option value="avocat" <?= $personRole === 'avocat' ? 'selected' : '' ?>>Avocat</option>
+                <option value="huissier" <?= $personRole === 'huissier' ? 'selected' : '' ?>>Huissier</option>
+
             </select>
 
-            <div class="common-fields">
-                <label>Nom complet:</label>
-                <input type="text" name="fullname" value="<?= $persons['fullname'] ?? '' ?>" required>
+            <label>Nom complet:</label>
+            <input type="text" name="fullname" value="<?= $isEdit ? htmlspecialchars($person['fullname']) : '' ?>" required>
 
-                <label>Email:</label>
-                <input type="email" name="email" value="<?= $persons['email'] ?? '' ?>" required>
+            <label>Email:</label>
+            <input type="email" name="email" value="<?= $isEdit ? htmlspecialchars($person['email']) : '' ?>" required>
 
-                <label>Téléphone:</label>
-                <input type="text" name="phone" value="<?= $persons['phone'] ?? '' ?>" required>
+            <label>Téléphone:</label>
+            <input type="text" name="phone" value="<?= $isEdit ? $person['phone'] : '' ?>" required>
 
-                <label>Expérience (en années):</label>
-                <input type="number" name="experience" value="<?= $persons['experience'] ?? '' ?>" required min="0">
+            <label>Expérience (en années):</label>
+            <input type="number" name="experience" value="<?= $isEdit ? $person['experience'] : '' ?>" required min="0">
 
-                <label>Tarif (MAD):</label>
-                <input type="number" name="tarif" value="<?= $persons['tarif'] ?? '' ?>" required min="0">
+            <label>Tarif (MAD):</label>
+            <input type="number" name="tarif" value="<?= $isEdit ? $person['tarif'] : '' ?>" required min="0">
 
-                <label>Ville:</label>
-                <select name="ville_id" required>
-                    <option value="">Sélectionner la ville</option>
-                    <?php foreach ($villes as $ville): ?>
-                        <option value="<?= $ville['id'] ?>"><?= htmlspecialchars($ville['nom']) ?? '' ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+            <label>Ville:</label>
+            <select name="ville_id" required>
+                <option value="">Sélectionner la ville</option>
+                <?php foreach ($villes as $ville): ?>
+                    <option value="<?= $ville['id'] ?>" <?= $isEdit && $person['ville_id'] == $ville['id'] ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($ville['nom']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
 
-            <div id="avocatFields" class="dynamic-fields" style="display:none;">
+            <div id="avocatFields" style="<?= $personRole === 'avocat' ? 'display:block' : 'display:none' ?>">
                 <label>Spécialité:</label>
                 <select name="speciality">
-                    <option>Droit Pénal</option>
-                    <option>Droit Civil</option>
-                    <option>Droit Famille</option>
-                    <option>Droit Affaires</option>
+                    <option value="">---</option>
+                    <option value="Droit des affaires" <?= $isEdit && $person['speciality'] === 'Droit des affaires' ? 'selected' : '' ?>>Droit des affaires</option>
+                    <option value="Contentieux des affaires" <?= $isEdit && $person['speciality'] === 'Contentieux des affaires' ? 'selected' : '' ?>>Contentieux des affaires</option>
+                    <option value="Droit des droits humains" <?= $isEdit && $person['speciality'] === 'Droit des droits humains' ? 'selected' : '' ?>>Droit des droits humains</option>
+                    <option value="Droit international" <?= $isEdit && $person['speciality'] === 'Droit international' ? 'selected' : '' ?>>Droit international</option>
+                    <option value="Conseil juridique international" <?= $isEdit && $person['speciality'] === 'Conseil juridique international' ? 'selected' : '' ?>>Conseil juridique international</option>
                 </select>
 
                 <label>Consultation en ligne:</label>
                 <select name="consultate_online">
-                    <option>yes</option>
-                    <option>no</option>
+                    <option value="yes" <?= $isEdit && $person['consultate_online'] === 'yes' ? 'selected' : '' ?>>Yes</option>
+                    <option value="no" <?= $isEdit && $person['consultate_online'] === 'no' ? 'selected' : '' ?>>No</option>
                 </select>
             </div>
 
-            <!-- Huissier specific fields -->
-            <div id="huissierFields" class="dynamic-fields" style="display:none;">
+            <div id="huissierFields" style="<?= $personRole === 'huissier' ? 'display:block' : 'display:none' ?>">
                 <label>Type d'actes:</label>
                 <select name="type_actes">
-                    <option>signification</option>
-                    <option>excecution</option>
-                    <option>constat</option>
+                    <option value="">---</option>
+                    <option value="signification" <?= $isEdit && $person['type_actes'] === 'signification' ? 'selected' : '' ?>>signification</option>
+                    <option value="excecution" <?= $isEdit && $person['type_actes'] === 'excecution' ? 'selected' : '' ?>>excecution</option>
+                    <option value="constat" <?= $isEdit && $person['type_actes'] === 'constat' ? 'selected' : '' ?>>constat</option>
                 </select>
             </div>
 
-            <form action="update" method="POST">
-                <input type="hidden" name="update_id" value="<?= $persons['id'] ?>">
-                <button type="submit" name="delete" class="del"></button>
-                <button type="submit" name="update" class="update btn"></button>
-            </form>
-
+            <button type="submit" class="btn"><?= $isEdit ? 'update' : 'create' ?></button>
         </form>
     </div>
 
@@ -106,7 +116,6 @@ $personRepo = new personRepository();
             huissierFields.style.display = roleSelect.value === 'huissier' ? 'block' : 'none';
         });
 
-        // Burger menu
         const burger = document.querySelector('.burger');
         const nav = document.querySelector('.nav-links');
         if (burger && nav) {

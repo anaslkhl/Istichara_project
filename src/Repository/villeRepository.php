@@ -1,5 +1,8 @@
 <?php
-require_once "../Connection/connect_db.php";
+namespace Repository;
+use Connection\Database;
+use PDO;
+use PDOException;
 
 class VilleRepository
 {

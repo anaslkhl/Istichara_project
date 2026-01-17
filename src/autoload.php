@@ -1,29 +1,12 @@
 <?php
+spl_autoload_register(function ($class) {
 
-function my_autoload($my_class){
 
+    $file = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
 
-    $paths = [
-        __DIR__ . '/Controllers/',
-        __DIR__ . '/Services/',
-        __DIR__ . '/Public/',
-        __DIR__ . '/Connection/',
-        __DIR__ . '/Repository/',
-        __DIR__ . '/Entities/',
-        __DIR__ . '/Routing/',
-        __DIR__ . '/Routing/'
-    ];
-
-    foreach($paths as $path){
-
-        $file = $path . $my_class . '.php';
-
-        if(file_exists($file)){
-            require_once($file);
-            return;
-        }
+    if (file_exists($file)) {
+        require_once $file;
+    } else {
+        echo "Autoload failed for: $file<br>";
     }
-
-}
-
-spl_autoload_register('my_autoload');
+});

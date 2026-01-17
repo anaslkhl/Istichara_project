@@ -6,7 +6,7 @@ class Routing
 
     public $routes = [
         'GET' => [],
-        'POST'=> []
+        'POST' => []
     ];
 
 
@@ -24,17 +24,24 @@ class Routing
         $this->routes['GET'][$this->normalize($url)] = $controller;
     }
 
-    public function post(string $url,string $controller)
+    public function post(string $url, string $controller)
     {
         $this->routes['POST'][$this->normalize($url)] = $controller;
     }
 
-    public function direct(string $url,string $requestType)
+    public function direct($uri, $method)
     {
+        foreach ($this->routes[$method] as $route => $action) {
 
-        if (array_key_exists( $url, $this->routes[$requestType])) {
-            return $this->routes[$requestType][$url];
+            $pattern = preg_replace('#\{[a-zA-Z]+\}#', '([0-9]+)', $route);
+
+            if (preg_match("#^{$pattern}$#", $uri, $matches)) {
+                array_shift($matches);
+                return [$action, $matches];
+            }
         }
+
+        throw new Exception("No route defined for this URI");
     }
 
     private function normalize(string $url): string

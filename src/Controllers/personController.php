@@ -1,5 +1,10 @@
 <?php
-require_once "../Services/personService.php";
+
+namespace Controllers;
+
+use Services\personService;
+use Repository\personRepository;
+
 
 class personController
 {
@@ -37,15 +42,36 @@ class personController
 
     public function update()
     {
-        require __DIR__ . '/../Public/form.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = $_POST;
+
+            $service = new personService();
+
+            try {
+                $service->update($data);
+                header('Location: /professionals');
+                exit;
+            } catch (\Exception $e) {
+                die('Update failed: ' . $e->getMessage());
+            }
+        } else {
+            die('Invalid request method');
+        }
+    }
+
+    public function dashboard()
+    {
+        require __DIR__ . '/../Public/dashboard.php';
     }
 
     public function edit($id)
     {
-        $presonRepo = new personRepository();
-        $person = $presonRepo->getPerson($id);
-        require __DIR__ . '/../Public/fotm.php';
+        $personRepo = new personRepository();
+        $person = $personRepo->getPerson($id);
+
+        require __DIR__ . '/../Public/form.php';
     }
+
 
     public function main()
     {

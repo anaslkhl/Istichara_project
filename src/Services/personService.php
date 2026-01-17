@@ -1,5 +1,10 @@
 <?php
 
+namespace Services;
+
+use Exception;
+use Repository\personRepository;
+
 class personService
 {
 
@@ -15,6 +20,7 @@ class personService
         return $this->repository->getAllPersons();
     }
 
+
     public function checkData($data)
     {
         $requiredFields = [
@@ -23,30 +29,36 @@ class personService
             'phone' => 'Phone',
             'experience' => 'Experience',
             'tarif' => 'Tarif',
-            'speciality' => 'Speciality',
-            'consultate_online' => 'Consultation Online',
-            'type_actes' => 'Type of Acts',
             'ville_id' => 'Ville ID'
         ];
+
+        if (isset($data['role']) && $data['role'] === 'avocat') {
+            $requiredFields['speciality'] = 'Speciality';
+            $requiredFields['consultate_online'] = 'Consultation Online';
+        } elseif (isset($data['role']) && $data['role'] === 'huissier') {
+            $requiredFields['type_actes'] = 'Type of Acts';
+        }
 
         foreach ($requiredFields as $field => $label) {
             if (empty($data[$field])) {
                 throw new Exception("$label is required");
             }
         }
+
         return true;
     }
 
     public function Store($data)
     {
-       
+
         if ($this->checkData($data)) {
 
-            if($data['role'] == 'Avocat'){
+            if ($data['role'] === 'avocat') {
                 $data['type_actes'] = null;
             }
-            else if($data['role'] == 'Huissier'){
-
+            if ($data['role'] === 'huissier') {
+                $data['speciality'] = null;
+                $data['consultate_online'] = null;
             }
 
             $person = [
@@ -62,6 +74,8 @@ class personService
                 'ville_id' => $data['ville_id'],
 
             ];
+
+
             return $this->repository->createPerson($person);
         }
     }
@@ -71,6 +85,14 @@ class personService
     {
         if (!isset($data['id'])) {
             throw new Exception('Id is not find and its required to update !');
+        }
+
+        if ($data['role'] === 'avocat') {
+            $data['type_actes'] = null;
+        }
+        if ($data['role'] === 'huissier') {
+            $data['speciality'] = null;
+            $data['consultate_online'] = null;
         }
 
         if ($this->checkData($data)) {
@@ -83,5 +105,24 @@ class personService
     public function delete(int $id): bool
     {
         return $this->repository->deletePerson($id);
+    }
+
+
+    public function countByType(string $type): int
+    {
+        $repo = new personRepository();
+        return $repo->countByType($type);
+    }
+
+    public function getByCity(): array
+    {
+        $repo = new personRepository();
+        return $repo->getByCity();
+    }
+
+    public function topAvocats(int $limit = 3): array
+    {
+        $repo = new personRepository();
+        return $repo->topAvocats($limit);
     }
 }
