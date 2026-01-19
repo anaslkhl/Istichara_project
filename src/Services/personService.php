@@ -59,6 +59,7 @@ class personService
             if ($data['role'] === 'huissier') {
                 $data['speciality'] = null;
                 $data['consultate_online'] = null;
+                
             }
 
             $person = [

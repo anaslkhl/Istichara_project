@@ -65,7 +65,6 @@
         </div>
 
 
-        <!-- Pagination -->
         <div class="pagination">
             <a href="#">«</a>
             <a href="#" class="active">1</a>
@@ -75,7 +74,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
 
     <?php require_once "./footer.php"; ?>
 

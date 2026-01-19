@@ -83,4 +83,9 @@ class personController
         $this->service->store($_POST);
         exit;
     }
+
+    public function clientInscription()
+    {
+        require __DIR__ . '/../Public/clientInscription.php';
+    }
 }
