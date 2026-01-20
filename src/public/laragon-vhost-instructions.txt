@@ -1,0 +1,20 @@
+FOR LARAGON USERS - PERMANENT FIX:
+
+1. In Laragon, right-click the system tray icon
+2. Select "Quick App" → "This folder"
+3. Laragon will create: http://istichara.test
+
+WHY THIS FIXES THE ISSUE:
+- Virtual host: http://istichara.test/login → /login
+- Subdirectory: http://localhost/istichara/public/login → /istichara/public/login
+
+Your router expects "/login", not "/istichara/public/login"
+
+AFTER SETTING UP VIRTUAL HOST:
+1. Access: http://istichara.test
+2. No more routing issues!
+3. Works exactly like Docker's http://localhost:8080
+
+If virtual host doesn't work, enable in Laragon:
+- Menu → Apache → vhosts → Enable
+- Then restart Laragon

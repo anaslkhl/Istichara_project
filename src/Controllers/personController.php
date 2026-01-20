@@ -18,26 +18,26 @@ class personController
     public function professionals()
     {
         $persons = $this->service->getAll();
-        require __DIR__ . '/../Public/professionals.php';
+        require __DIR__ . '/../public/professionals.php';
     }
     public function huisser()
     {
-        require __DIR__ . '/../Public/huisser.php';
+        require __DIR__ . '/../public/huisser.php';
     }
 
     public function avocat()
     {
-        require __DIR__ . '/../Public/avocat.php';
+        require __DIR__ . '/../public/avocat.php';
     }
     public function create()
     {
-        require __DIR__ . '/../Public/form.php';
+        require __DIR__ . '/../public/form.php';
     }
 
     public function delete()
     {
         $this->service->delete($_POST['delete']);
-        require __DIR__ . '/../Public/professionals.php';
+        require __DIR__ . '/../public/professionals.php';
     }
 
     public function update()
@@ -61,7 +61,7 @@ class personController
 
     public function dashboard()
     {
-        require __DIR__ . '/../Public/dashboard.php';
+        require __DIR__ . '/../public/dashboard.php';
     }
 
     public function edit($id)
@@ -69,13 +69,13 @@ class personController
         $personRepo = new personRepository();
         $person = $personRepo->getPerson($id);
 
-        require __DIR__ . '/../Public/form.php';
+        require __DIR__ . '/../public/form.php';
     }
 
 
     public function main()
     {
-        require __DIR__ . '/../Public/main.php';
+        require __DIR__ . '/../public/main.php';
     }
 
     public function store()
@@ -86,6 +86,6 @@ class personController
 
     public function clientInscription()
     {
-        require __DIR__ . '/../Public/clientInscription.php';
+        require __DIR__ . '/../public/clientInscription.php';
     }
 }

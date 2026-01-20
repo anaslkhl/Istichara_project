@@ -19,6 +19,11 @@ class Routing
         $this->routes['GET'][$this->normalize($url)] = $controller;
     }
 
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
+
     public function post(string $url, string $controller)
     {
         $this->routes['POST'][$this->normalize($url)] = $controller;

@@ -42,3 +42,4 @@ class Database
         return $this->pdo;
     }
 }
+

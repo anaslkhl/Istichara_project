@@ -173,10 +173,10 @@ class personRepository
 
     private function getCityName($ville_id): string
     {
-        $stmt = $this->db->prepare("SELECT nom FROM ville WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT name FROM ville WHERE id = ?");
         $stmt->execute([$ville_id]);
         $row = $stmt->fetch();
-        return $row['nom'] ?? 'Unknown';
+        return $row['name'] ?? 'Unknown';
     }
 
     public function topAvocats(int $limit = 3): array

@@ -1,0 +1,19 @@
+# Ignore Laragon-specific files from Docker build
+.env.laragon.example
+laragon-setup.bat
+fix-laragon.bat
+setup-laragon.bat
+laragon-fix.bat
+fix-it.bat
+
+# Ignore backups
+.env.backup
+.env.broken
+.env.laragon
+
+# Development files
+node_modules/
+*.log
+.DS_Store
+.idea/
+.vscode/
