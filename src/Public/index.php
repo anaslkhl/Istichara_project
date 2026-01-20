@@ -17,4 +17,4 @@ $method = $_SERVER['REQUEST_METHOD'];
 $controller = "Controllers\\$controller";
 $controllerInstance = new $controller();
 
-call_user_func_array([$controllerInstance, $methodName], $params);
+call_user_func_array([$controllerInstance, $methodName], $params); 
