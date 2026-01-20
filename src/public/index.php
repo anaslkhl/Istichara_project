@@ -1,5 +1,5 @@
 <?php
-// src/public/index.php - UPDATED WITH DEBUG
+// src/public/index.php - LARAGON COMPATIBLE VERSION
 
 // DEBUG MODE - add ?debug=1 to any URL
 $debug = isset($_GET['debug']);
@@ -12,15 +12,42 @@ if ($debug) {
     echo "PHP_SELF: " . ($_SERVER['PHP_SELF'] ?? 'N/A') . "\n";
 }
 
-require_once __DIR__ . "/../autoload.php";
-require_once "../Routing/Routing.php";
+// ========== FIX FOR LARAGON SUBDIRECTORIES ==========
+function getNormalizedUri(): string
+{
+    $uri = $_SERVER['REQUEST_URI'] ?? '/';
+    
+    // Remove query string
+    if (($pos = strpos($uri, '?')) !== false) {
+        $uri = substr($uri, 0, $pos);
+    }
+    
+    // Handle Laragon subdirectory (if accessing via /istichara/public/)
+    $prefixes = ['/istichara/public', '/public', '/istichara'];
+    foreach ($prefixes as $prefix) {
+        if (strpos($uri, $prefix) === 0) {
+            $uri = substr($uri, strlen($prefix));
+            break;
+        }
+    }
+    
+    // Ensure not empty
+    if ($uri === '') {
+        $uri = '/';
+    }
+    
+    return $uri;
+}
 
-$router = Routing::load('routes.php');
-$uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+require_once __DIR__ . "/../autoload.php";
+require_once __DIR__ . "/../Routing/Routing.php";
+
+$router = Routing::load(__DIR__ . '/../Routing/routes.php');
+$uri = getNormalizedUri();
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
 if ($debug) {
-    echo "URI after parse_url: " . htmlspecialchars($uri) . "\n";
+    echo "Normalized URI: " . htmlspecialchars($uri) . "\n";
     echo "Method: $method\n";
     echo "---\n";
 }
@@ -50,12 +77,6 @@ try {
         echo "❌ Route NOT FOUND\n";
         echo "Error: " . htmlspecialchars($e->getMessage()) . "\n";
         echo "URI attempted: " . htmlspecialchars($uri) . "\n";
-        
-        // Show available routes
-        echo "\nAvailable routes for $method:\n";
-        // We need to add a getRoutes method to Routing class
-        echo "Add this to your Routing class:\n";
-        echo "public function getRoutes() { return \$this->routes; }\n";
         echo "</pre>";
     } else {
         echo "<h1>404 - Page Not Found</h1>";

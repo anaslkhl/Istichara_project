@@ -1,34 +1,18 @@
-# DISABLE directory listing
+# ============================================
+# Apache Configuration for Laragon
+# Matches your Nginx setup
+# ============================================
+
+# Disable directory listing
 Options -Indexes
 
-# DISABLE MultiViews (prevents auto-adding extensions)
-Options -MultiViews
+# Enable rewrite engine
+RewriteEngine On
 
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    
-    # BLOCK direct access to any .php file EXCEPT index.php
-    RewriteCond %{THE_REQUEST} \s/+(.*?/)?(?:index)?(.*?)\.php[\s?] [NC]
-    RewriteCond %{REQUEST_URI} !^/index\.php [NC]
-    RewriteRule ^ - [F,L]
-    
-    # FORCE all requests through index.php
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php [L,QSA]
-    
-    # Redirect root to index.php explicitly
-    RewriteRule ^$ index.php [L]
-</IfModule>
+# If the file/directory exists, serve it directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
 
-# Security headers
-<IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-    Header set X-Frame-Options "DENY"
-</IfModule>
-
-# Prevent access to specific files
-<FilesMatch "\.(env|json|config.js|md|gitignore|gitattributes|lock)$">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
+# Otherwise, forward everything to index.php (like Nginx's try_files)
+RewriteRule ^(.*)$ index.php [QSA,L]
