@@ -44,7 +44,7 @@
                     <div class="card-header">
                         <h3><?= htmlspecialchars($person['fullname']) ?></h3>
                         <span class="role-badge">
-                            <?= ($person['speciality']) ?>
+                            <?= ($person['role']) ?>
                         </span>
                     </div>
                     <div class="card-body">
