@@ -17,6 +17,10 @@ if (($pos = strpos($uri, '?')) !== false) {
 if (strpos($uri, '/istichara/public') === 0) {
     $uri = substr($uri, strlen('/istichara/public'));
 }
+// for abdelhafid problem
+if (strpos($uri, '/Istichara_project') === 0) {
+    $uri = substr($uri, strlen('/Istichara_project'));
+}
 
 // Ensure not empty
 if ($uri === '') {
@@ -35,6 +39,7 @@ if (isset($_GET['debug'])) {
 try {
     $router = Routing::load(__DIR__ . '/../Routing/routes.php');
     $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+    //var_dump([$method, $uri]);exit;
 
     [$action, $params] = $router->direct($uri, $method);
     [$controller, $methodName] = explode('@', $action);
