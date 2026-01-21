@@ -10,10 +10,10 @@ class Database
 {
     private ?PDO $pdo;
 
-    private string $host = 'mysql';
+    private string $host = 'localhost';
     private string $dbname = 'IsticharaDB';
     private string $username = 'root';
-    private string $password = 'camus';
+    private string $password = '';
 
     private static ?Database $instance = null;
 

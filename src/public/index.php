@@ -4,9 +4,9 @@
 // Load router
 require_once __DIR__ . "/../autoload.php";
 require_once __DIR__ . "/../Routing/Routing.php";
-
 // Get URI and fix Laragon paths
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
+
 
 // Remove query string
 if (($pos = strpos($uri, '?')) !== false) {
@@ -20,6 +20,10 @@ if (strpos($uri, '/istichara/public') === 0) {
 
 // Ensure not empty
 if ($uri === '') {
+    $uri = '/';
+}
+// for abdellah problem, plz dont remove it
+if ($uri === '/index.php') {
     $uri = '/';
 }
 
