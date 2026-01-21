@@ -1,0 +1,22 @@
+○ docker.service - Docker Application Container Engine
+     Loaded: loaded (]8;;file://ca-us-Latitude-3540/usr/lib/systemd/system/docker.service\/usr/lib/systemd/system/docker.service]8;;\; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: inactive (dead) since Wed 2026-01-21 10:46:56 +01; 1min 1s ago
+   Duration: 16min 24.624s
+ Invocation: 6d3354b3f3dd4d84a55052df9ce351f9
+TriggeredBy: ○ docker.socket
+       Docs: ]8;;https://docs.docker.com\https://docs.docker.com]8;;\
+    Process: 100681 ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock (code=exited, status=0/SUCCESS)
+   Main PID: 100681 (code=exited, status=0/SUCCESS)
+   Mem peak: 30.9M
+        CPU: 1.323s
+
+Jan 21 10:30:32 ca-us-Latitude-3540 dockerd[100681]: time="2026-01-21T10:30:32.044604084+01:00" level=info msg="Daemon has completed initialization"
+Jan 21 10:30:32 ca-us-Latitude-3540 dockerd[100681]: time="2026-01-21T10:30:32.044724819+01:00" level=info msg="API listen on /run/docker.sock"
+Jan 21 10:30:32 ca-us-Latitude-3540 systemd[1]: Started docker.service - Docker Application Container Engine.
+Jan 21 10:46:56 ca-us-Latitude-3540 systemd[1]: Stopping docker.service - Docker Application Container Engine...
+Jan 21 10:46:56 ca-us-Latitude-3540 dockerd[100681]: time="2026-01-21T10:46:56.670037128+01:00" level=info msg="Processing signal 'terminated'"
+Jan 21 10:46:56 ca-us-Latitude-3540 dockerd[100681]: time="2026-01-21T10:46:56.672164226+01:00" level=info msg="stopping event stream following graceful shutdown" error="<nil>" module=libcontainerd namespace=moby
+Jan 21 10:46:56 ca-us-Latitude-3540 dockerd[100681]: time="2026-01-21T10:46:56.673541715+01:00" level=info msg="Daemon shutdown complete"
+Jan 21 10:46:56 ca-us-Latitude-3540 systemd[1]: docker.service: Deactivated successfully.
+Jan 21 10:46:56 ca-us-Latitude-3540 systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Jan 21 10:46:56 ca-us-Latitude-3540 systemd[1]: docker.service: Consumed 1.323s CPU time, 30.9M memory peak.

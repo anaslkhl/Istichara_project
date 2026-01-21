@@ -1,19 +1,35 @@
-# Ignore Laragon-specific files from Docker build
-.env.laragon.example
-laragon-setup.bat
-fix-laragon.bat
-setup-laragon.bat
-laragon-fix.bat
-fix-it.bat
+# Include any files or directories that you don't want to be copied to your
+# container here (e.g., local build artifacts, temporary files, etc.).
+#
+# For more help, visit the .dockerignore file reference guide at
+# https://docs.docker.com/go/build-context-dockerignore/
 
-# Ignore backups
-.env.backup
-.env.broken
-.env.laragon
-
-# Development files
-node_modules/
-*.log
-.DS_Store
-.idea/
-.vscode/
+**/.classpath
+**/.dockerignore
+**/.env
+**/.git
+**/.gitignore
+**/.project
+**/.settings
+**/.toolstarget
+**/.vs
+**/.vscode
+**/.next
+**/.cache
+**/*.*proj.user
+**/*.dbmdl
+**/*.jfm
+**/charts
+**/docker-compose*
+**/compose.y*ml
+!**/composer.json
+!**/composer.lock
+**/Dockerfile*
+**/node_modules
+**/npm-debug.log
+**/obj
+**/secrets.dev.yaml
+**/values.dev.yaml
+**/vendor
+LICENSE
+README.md

@@ -38,7 +38,7 @@
                     
                     <div class="form-group">
                         <label for="clientEmail">
-                            <i class="fas fa-envelope"></i> Email Address
+                            <i class="fas fa-envelope"></i> Email 
                         </label>
                         <input type="email" id="clientEmail" name="clientEmail" required placeholder="Enter your email">
                     </div>

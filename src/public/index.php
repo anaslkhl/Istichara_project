@@ -1,29 +1,22 @@
 <?php
-// src/public/index.php - ULTRA SIMPLE
 
-// Load router
 require_once __DIR__ . "/../autoload.php";
 require_once __DIR__ . "/../Routing/Routing.php";
 
-// Get URI and fix Laragon paths
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
 
-// Remove query string
 if (($pos = strpos($uri, '?')) !== false) {
     $uri = substr($uri, 0, $pos);
 }
 
-// Fix for Laragon subdirectory
 if (strpos($uri, '/istichara/public') === 0) {
     $uri = substr($uri, strlen('/istichara/public'));
 }
 
-// Ensure not empty
 if ($uri === '') {
     $uri = '/';
 }
 
-// Debug mode
 if (isset($_GET['debug'])) {
     echo "<pre>Debug: $uri</pre>";
 }

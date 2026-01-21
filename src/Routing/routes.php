@@ -18,4 +18,4 @@ $router->get('/avocat', 'avocatController@avocat');
 $router->get('/huisser', 'huisserController@huisser');
 $router->get('/person', 'personController@person');
 
-   
+   $router->get('/professionals.php', 'personController@professionals');
