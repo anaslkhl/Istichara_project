@@ -126,4 +126,20 @@ class personService
         $repo = new personRepository();
         return $repo->topAvocats($limit);
     }
+    public function houres_worked(){
+        $total_houres = new personRepository;
+        return $total_houres->total_houres_worked();
+    }
+    public function chiffre_afaires(){
+        $chiffres = new personRepository;
+        return $chiffres->chifresAffaires();
+    }
+    public function unique_clients(){
+        $total_unique= new personRepository;
+        return $total_unique->unique_clients();
+    }
+    public function total_reservation(){
+        $total_reservation = new personRepository;
+        return $total_reservation->totale_resarvation();
+    }
 }
