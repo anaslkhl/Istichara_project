@@ -7,9 +7,9 @@
             <li><a href="/dashboard">Dashboard</a></li>
             <li><a href="/professionals">Professionals</a></li>
             <li><a href="/form">Add Person</a></li>
-            <li><a href="/clientInscription">client login</a></li>
+            <!-- <li><a href="/clientInscription">client login</a></li>
             <li><a href="/professionalInscription">professional login</a></li>
-       
+        -->
         </ul>
         <div class="burger">
             <div></div>

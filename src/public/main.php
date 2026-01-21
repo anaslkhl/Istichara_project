@@ -17,7 +17,7 @@
         <div class="container">
             <h1>Bienvenue sur ISTICHARA</h1>
             <p>Accédez rapidement aux avocats et huissiers qualifiés au Maroc</p>
-            <a href="professionals" class="btn">Rechercher un professionnel</a>
+            <a href="professionals.php" class="btn">Rechercher un professionnel</a>
         </div>
     </header>
 

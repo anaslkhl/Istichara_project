@@ -18,6 +18,7 @@ if ($isEdit) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,6 +26,7 @@ if ($isEdit) {
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="container">
         <!-- Header avec sélection du type d'utilisateur -->
@@ -33,7 +35,7 @@ if ($isEdit) {
                 <i class="fas fa-balance-scale"></i>
                 <h1>ISTICHARA</h1>
             </div>
-            
+
             <div class="user-type-selector">
                 <div class="selector-tabs">
                     <button class="tab-btn active" data-type="client">
@@ -54,10 +56,10 @@ if ($isEdit) {
                     <h2><i class="fas fa-user-plus"></i> Inscription Client</h2>
                     <p>Créez votre compte pour accéder aux services juridiques</p>
                 </div>
-                
+
                 <form action="/store" method="POST" id="clientForm" class="registration-form">
                     <input type="hidden" name="user_type" value="client">
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="client_fullname">
@@ -65,22 +67,22 @@ if ($isEdit) {
                             </label>
                             <input type="text" id="client_fullname" name="fullname" required placeholder="Votre nom complet">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="client_email">
-                                <i class="fas fa-envelope"></i> Email
+                                <i class="fas fa-envelope"></i> Email Address
                             </label>
                             <input type="email" id="client_email" name="email" required placeholder="votre@email.com">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="client_phone">
                             <i class="fas fa-phone"></i> Téléphone
                         </label>
                         <input type="text" id="client_phone" name="phone" required placeholder="Votre numéro de téléphone">
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="client_password">
@@ -93,7 +95,7 @@ if ($isEdit) {
                                 </button>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="client_confirm_password">
                                 <i class="fas fa-lock"></i> Confirmer le mot de passe
@@ -101,7 +103,7 @@ if ($isEdit) {
                             <input type="password" id="client_confirm_password" name="confirm_password" required placeholder="Confirmez le mot de passe">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="client_ville_id">
                             <i class="fas fa-city"></i> Ville
@@ -111,18 +113,18 @@ if ($isEdit) {
                             <!-- Les options seront chargées dynamiquement -->
                         </select>
                     </div>
-                    
+
                     <div class="form-group checkbox-group">
                         <input type="checkbox" id="client_terms" name="terms" required>
                         <label for="client_terms">
                             J'accepte les <a href="#">Conditions d'utilisation</a> et la <a href="#">Politique de confidentialité</a>
                         </label>
                     </div>
-                    
+
                     <button type="submit" class="submit-btn">
                         <i class="fas fa-user-check"></i> Créer mon compte
                     </button>
-                    
+
                     <div class="form-footer">
                         <p>Déjà inscrit ? <a href="#">Se connecter</a></p>
                     </div>
@@ -156,55 +158,86 @@ if ($isEdit) {
                         <h2><i class="fas fa-user-tie"></i> Informations Professionnelles</h2>
                         <p>Remplissez vos informations personnelles et professionnelles</p>
                     </div>
-                    
+
                     <form class="step-form" id="professionalStep1Form">
                         <input type="hidden" name="user_type" value="professional">
-                        
+
+                        <div class="form-group">
+                            <label for="pro_type">Role *</label>
+                            <select id="pro_type" name="type" required>
+                                <option value="">Sélectionner</option>
+                                <option value="avocat" <?= $personRole === 'admin' ? 'selected' : '' ?>>Admin</option>
+                                <option value="avocat" <?= $personRole === 'client' ? 'selected' : '' ?>>Client</option>
+                                <option value="professionnel" <?= $personRole === 'professionnel' ? 'selected' : '' ?>>Professionnel</option>
+                            </select>
+                        </div>
+
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="pro_fullname">
                                     <i class="fas fa-user"></i> Nom complet *
                                 </label>
-                                <input type="text" id="pro_fullname" name="fullname" required 
-                                       value="<?= $isEdit ? htmlspecialchars($person['fullname']) : '' ?>">
+                                <input type="text" id="pro_fullname" name="fullname" required
+                                    value="<?= $isEdit ? htmlspecialchars($person['fullname']) : '' ?>">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="pro_email">
                                     <i class="fas fa-envelope"></i> Email professionnel *
                                 </label>
-                                <input type="email" id="pro_email" name="email" required 
-                                       value="<?= $isEdit ? htmlspecialchars($person['email']) : '' ?>">
+                                <input type="email" id="pro_email" name="email" required
+                                    value="<?= $isEdit ? htmlspecialchars($person['email']) : '' ?>">
                             </div>
                         </div>
-                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="client_password">
+                                    <i class="fas fa-lock"></i> Mot de passe
+                                </label>
+                                <div class="password-input">
+                                    <input type="password" id="client_password" name="password" required placeholder="Créez un mot de passe">
+                                    <button type="button" class="password-toggle">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="client_confirm_password">
+                                    <i class="fas fa-lock"></i> Confirmer le mot de passe
+                                </label>
+                                <input type="password" id="client_confirm_password" name="confirm_password" required placeholder="Confirmez le mot de passe">
+                            </div>
+                        </div>
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="pro_phone">
                                     <i class="fas fa-phone"></i> Téléphone *
                                 </label>
-                                <input type="text" id="pro_phone" name="phone" required 
-                                       value="<?= $isEdit ? $person['phone'] : '' ?>">
+                                <input type="text" id="pro_phone" name="phone" required
+                                    value="<?= $isEdit ? $person['phone'] : '' ?>">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="pro_experience">
                                     <i class="fas fa-briefcase"></i> Expérience (années) *
                                 </label>
-                                <input type="number" id="pro_experience" name="experience" required 
-                                       min="0" value="<?= $isEdit ? $person['experience'] : '' ?>">
+                                <input type="number" id="pro_experience" name="experience" required
+                                    min="0" value="<?= $isEdit ? $person['experience'] : '' ?>">
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="pro_tarif">
                                     <i class="fas fa-money-bill-wave"></i> Tarif (MAD) *
                                 </label>
-                                <input type="number" id="pro_tarif" name="tarif" required 
-                                       min="0" value="<?= $isEdit ? $person['tarif'] : '' ?>">
+                                <input type="number" id="pro_tarif" name="tarif" required
+                                    min="0" value="<?= $isEdit ? $person['tarif'] : '' ?>">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="pro_ville_id">
                                     <i class="fas fa-city"></i> Ville *
@@ -215,16 +248,16 @@ if ($isEdit) {
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="pro_role">Type de professionnel *</label>
-                            <select id="pro_role" name="role" required>
+                            <select id="pro_role" name="type_professionnel" required>
                                 <option value="">Sélectionner</option>
                                 <option value="avocat" <?= $personRole === 'avocat' ? 'selected' : '' ?>>Avocat</option>
                                 <option value="huissier" <?= $personRole === 'huissier' ? 'selected' : '' ?>>Huissier</option>
                             </select>
                         </div>
-                        
+
                         <!-- Champs spécifiques Avocat -->
                         <div id="avocatFields" style="display: none;">
                             <div class="form-row">
@@ -239,7 +272,7 @@ if ($isEdit) {
                                         <option value="Conseil juridique international">Conseil juridique international</option>
                                     </select>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="pro_consultate_online">Consultation en ligne</label>
                                     <select id="pro_consultate_online" name="consultate_online">
@@ -249,7 +282,7 @@ if ($isEdit) {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Champs spécifiques Huissier -->
                         <div id="huissierFields" style="display: none;">
                             <div class="form-group">
@@ -262,16 +295,8 @@ if ($isEdit) {
                                 </select>
                             </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="pro_bio">
-                                <i class="fas fa-file-alt"></i> Biographie professionnelle
-                            </label>
-                            <textarea id="pro_bio" name="bio" rows="3" 
-                                      placeholder="Décrivez votre parcours professionnel..."></textarea>
-                        </div>
                     </form>
-                    
+
                     <div class="step-buttons">
                         <button class="btn-next" onclick="nextStep(2)">
                             Suivant <i class="fas fa-arrow-right"></i>
@@ -285,7 +310,7 @@ if ($isEdit) {
                         <h2><i class="fas fa-file-upload"></i> Documents Professionnels</h2>
                         <p>Téléchargez vos justificatifs pour vérification</p>
                     </div>
-                    
+
                     <div class="documents-section">
                         <div class="document-upload">
                             <div class="upload-area" id="professionalCardUpload">
@@ -298,8 +323,8 @@ if ($isEdit) {
                                 </button>
                                 <div class="file-info" id="professionalCardInfo">Aucun fichier sélectionné</div>
                             </div>
-                            
-                            <div class="upload-area" id="diplomaUpload">
+
+                            <!-- <div class="upload-area" id="diplomaUpload">
                                 <i class="fas fa-graduation-cap"></i>
                                 <h4>Diplômes et Certifications</h4>
                                 <p>Vos diplômes et certifications professionnelles</p>
@@ -309,7 +334,7 @@ if ($isEdit) {
                                 </button>
                                 <div class="file-info" id="diplomasInfo">Aucun fichier sélectionné</div>
                             </div>
-                            
+
                             <div class="upload-area" id="idUpload">
                                 <i class="fas fa-passport"></i>
                                 <h4>Carte d'identité / Passeport</h4>
@@ -319,9 +344,9 @@ if ($isEdit) {
                                     <i class="fas fa-upload"></i> Choisir un fichier
                                 </button>
                                 <div class="file-info" id="governmentIdInfo">Aucun fichier sélectionné</div>
-                            </div>
+                            </div> -->
                         </div>
-                        
+
                         <div class="upload-requirements">
                             <h4><i class="fas fa-info-circle"></i> Exigences de téléchargement :</h4>
                             <ul>
@@ -332,7 +357,7 @@ if ($isEdit) {
                             </ul>
                         </div>
                     </div>
-                    
+
                     <div class="step-buttons">
                         <button class="btn-prev" onclick="prevStep(1)">
                             <i class="fas fa-arrow-left"></i> Précédent
@@ -349,7 +374,7 @@ if ($isEdit) {
                         <h2><i class="fas fa-clipboard-check"></i> Vérification et Soumission</h2>
                         <p>Vérifiez vos informations avant soumission</p>
                     </div>
-                    
+
                     <div class="review-section">
                         <div class="review-card">
                             <h3><i class="fas fa-user-tie"></i> Informations Personnelles</h3>
@@ -380,7 +405,7 @@ if ($isEdit) {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="review-card">
                             <h3><i class="fas fa-file-alt"></i> Documents</h3>
                             <div class="review-details">
@@ -388,38 +413,85 @@ if ($isEdit) {
                                     <span>Carte professionnelle :</span>
                                     <span id="reviewCard">Non téléchargé</span>
                                 </div>
-                                <div class="review-item">
+                                <!-- <div class="review-item">
                                     <span>Diplômes :</span>
                                     <span id="reviewDiplomas">Non téléchargés</span>
                                 </div>
                                 <div class="review-item">
                                     <span>Pièce d'identité :</span>
                                     <span id="reviewId">Non téléchargée</span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
-                        
+
                         <div class="form-group checkbox-group">
                             <input type="checkbox" id="pro_terms" name="pro_terms" required>
                             <label for="pro_terms">
-                                Je certifie que toutes les informations fournies sont exactes et j'accepte les 
+                                Je certifie que toutes les informations fournies sont exactes et j'accepte les
                                 <a href="#">Conditions d'utilisation</a> et la <a href="#">Politique de confidentialité</a>
                             </label>
                         </div>
-                        
+
                         <div class="verification-notice">
                             <div class="notice-icon">
                                 <i class="fas fa-clock"></i>
                             </div>
                             <div class="notice-content">
                                 <h4>Processus de vérification</h4>
-                                <p>Après soumission, votre demande sera examinée par notre équipe d'administration. 
-                                Ce processus prend généralement 2-3 jours ouvrables. Vous recevrez une notification 
-                                par email une fois votre compte approuvé.</p>
+                                <p>Après soumission, votre demande sera examinée par notre équipe d'administration.
+                                    Ce processus prend généralement 2-3 jours ouvrables. Vous recevrez une notification
+                                    par email une fois votre compte approuvé.</p>
                             </div>
                         </div>
                     </div>
-                    
+
+                    <!-- Login Form -->
+                    <div class="login-form-container">
+                        <div class="form-header">
+                            <h2><i class="fas fa-sign-in-alt"></i> Se Connecter</h2>
+                            <p>Accédez à votre compte ISTICHARA</p>
+                        </div>
+
+                        <form id="loginForm" class="login-form">
+                            <div class="form-group">
+                                <label for="login_email">
+                                    <i class="fas fa-envelope"></i> Email
+                                </label>
+                                <input type="email" id="login_email" name="email" required placeholder="votre@email.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="login_password">
+                                    <i class="fas fa-lock"></i> Mot de passe
+                                </label>
+                                <div class="password-input">
+                                    <input type="password" id="login_password" name="password" required placeholder="Votre mot de passe">
+                                    <button type="button" class="password-toggle">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group checkbox-group">
+                                    <input type="checkbox" id="remember_me" name="remember_me">
+                                    <label for="remember_me">Se souvenir de moi</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+                                </div>
+                            </div>
+
+                            <p>Déjà inscrit ? <button id="loginToggleBtn" class="login-toggle-btn">Se connecter</button></p>
+
+
+                            <div class="form-footer">
+                                <p>Pas encore de compte ? <a href="#" class="switch-to-register">S'inscrire</a></p>
+                            </div>
+                        </form>
+                    </div>
+
                     <div class="step-buttons">
                         <button class="btn-prev" onclick="prevStep(2)">
                             <i class="fas fa-arrow-left"></i> Précédent
@@ -431,7 +503,7 @@ if ($isEdit) {
                 </div>
             </div>
         </main>
-        
+
         <!-- Section pour la gestion des données existantes (Add/Update) -->
         <div class="data-management-section" style="display: none;" id="dataManagementSection">
             <!-- Cette section peut être utilisée pour l'édition/ajout dynamique -->
@@ -439,4 +511,5 @@ if ($isEdit) {
     </div>
     <script src="./script/script.js"></script>
 </body>
+
 </html>
