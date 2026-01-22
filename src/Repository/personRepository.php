@@ -22,8 +22,8 @@ class personRepository
     {
         try {
             $conn = $this->db;
-            $stmt = $conn->prepare('INSERT INTO person (fullname, email, phone,	experience,	tarif,	speciality,	consultate_online,	type_actes,	ville_id)
-                                VALUES (?,?,?,?,?,?,?,?,?)');
+            $stmt = $conn->prepare('INSERT INTO person (fullname, email, phone,	experience,	tarif,	speciality,	consultate_online,	type_actes,	ville_id, password, role, fichier_acceptation)
+                                VALUES (?,?,?,?,?,?,?,?,?,?,?,?)');
 
             $stmt->execute([
                 $person['fullname'],
@@ -34,7 +34,10 @@ class personRepository
                 $person['speciality'],
                 $person['consultate_online'],
                 $person['type_actes'],
-                $person['ville_id']
+                $person['ville_id'],
+                $person['password'],
+                $person['role'],
+                $person['fichier_acceptation']
             ]);
             header('location: professionals');
             return true;
@@ -173,10 +176,10 @@ class personRepository
 
     private function getCityName($ville_id): string
     {
-        $stmt = $this->db->prepare("SELECT name FROM ville WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT nom FROM ville WHERE id = ?");
         $stmt->execute([$ville_id]);
         $row = $stmt->fetch();
-        return $row['name'] ?? 'Unknown';
+        return $row['nom'] ?? 'Unknown';
     }
 
     public function topAvocats(int $limit = 3): array

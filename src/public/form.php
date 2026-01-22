@@ -58,9 +58,15 @@ if ($isEdit) {
                 </div>
 
                 <form action="/store" method="POST" id="clientForm" class="registration-form">
-                    <input type="hidden" name="user_type" value="client">
+                    <input type="hidden" name="role" value="client">
 
-                    <div class="form-row">
+                    <div class="row">
+                        <div class="form-group">
+                            <i class="fas fa-user"></i> Role :
+                            <i class="fa-user" id="faa">
+                                Client
+                            </i>
+                        </div>
                         <div class="form-group">
                             <label for="client_fullname">
                                 <i class="fas fa-user"></i> Nom complet
@@ -110,7 +116,7 @@ if ($isEdit) {
                         </label>
                         <select id="client_ville_id" name="ville_id" required>
                             <option value="">Sélectionnez votre ville</option>
-                            <!-- Les options seront chargées dynamiquement -->
+                            <option value="demnate">Demnate</option>
                         </select>
                     </div>
 
@@ -121,14 +127,16 @@ if ($isEdit) {
                         </label>
                     </div>
 
-                    <button type="submit" class="submit-btn">
+                    <button type="submit" class="submit-btn" name="client-btn">
                         <i class="fas fa-user-check"></i> Créer mon compte
                     </button>
 
-                    <div class="form-footer">
-                        <p>Déjà inscrit ? <a href="#">Se connecter</a></p>
-                    </div>
                 </form>
+                <div class="form-group">
+                    <p>Déjà inscrit ?</p>
+                    <button type="button" class="loginToggleBtn" class="login-toggle-btn">Se connecter</button>
+
+                </div>
             </div>
 
             <!-- Form Professionnel (Multi-step) -->
@@ -159,7 +167,7 @@ if ($isEdit) {
                         <p>Remplissez vos informations personnelles et professionnelles</p>
                     </div>
 
-                    <form class="step-form" id="professionalStep1Form">
+                    <form class="step-form" id="professionalStep1Form" method="POST">
                         <input type="hidden" name="user_type" value="professional">
 
                         <div class="form-group">
@@ -244,7 +252,8 @@ if ($isEdit) {
                                 </label>
                                 <select id="pro_ville_id" name="ville_id" required>
                                     <option value="">Sélectionnez la ville</option>
-                                    <!-- Les options seront chargées dynamiquement -->
+                                    <option value="Marrakech">Marrakech</option>
+
                                 </select>
                             </div>
                         </div>
@@ -302,6 +311,11 @@ if ($isEdit) {
                             Suivant <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
+                    <div class="step-buttons">
+                        <p>Déjà inscrit ?</p>
+                        <button type="button" class="loginToggleBtn" class="login-toggle-btn">Se connecter</button>
+
+                    </div>
                 </div>
 
                 <!-- Step 2: Documents -->
@@ -314,17 +328,16 @@ if ($isEdit) {
                     <div class="documents-section">
                         <div class="document-upload">
                             <div class="upload-area" id="professionalCardUpload">
-                                <i class="fas fa-id-card"></i>
-                                <h4>Carte professionnelle</h4>
-                                <p>Document officiel d'identification professionnelle</p>
-                                <input type="file" id="professional_card" name="professional_card" accept=".pdf,.jpg,.png,.jpeg" hidden>
-                                <button type="button" class="upload-btn" onclick="triggerFileInput('professional_card')">
-                                    <i class="fas fa-upload"></i> Choisir un fichier
-                                </button>
-                                <div class="file-info" id="professionalCardInfo">Aucun fichier sélectionné</div>
+                                <h2>File Upload Form</h2>
+                                <form method="POST" action="uploadfile.php" enctype="multipart/form-data">
+                                    <label for="file">File name:</label>
+                                    <input type="file" name="uploadfile" />
+                                    <input type="submit" name="submit" value="Upload" />
+                                </form>
                             </div>
+                        </div>
 
-                            <!-- <div class="upload-area" id="diplomaUpload">
+                        <!-- <div class="upload-area" id="diplomaUpload">
                                 <i class="fas fa-graduation-cap"></i>
                                 <h4>Diplômes et Certifications</h4>
                                 <p>Vos diplômes et certifications professionnelles</p>
@@ -345,75 +358,75 @@ if ($isEdit) {
                                 </button>
                                 <div class="file-info" id="governmentIdInfo">Aucun fichier sélectionné</div>
                             </div> -->
-                        </div>
-
-                        <div class="upload-requirements">
-                            <h4><i class="fas fa-info-circle"></i> Exigences de téléchargement :</h4>
-                            <ul>
-                                <li>Taille maximale par fichier : 5MB</li>
-                                <li>Formats acceptés : PDF, JPG, PNG</li>
-                                <li>Les documents doivent être clairs et lisibles</li>
-                                <li>Tous les documents seront vérifiés par notre équipe</li>
-                            </ul>
-                        </div>
                     </div>
 
-                    <div class="step-buttons">
-                        <button class="btn-prev" onclick="prevStep(1)">
-                            <i class="fas fa-arrow-left"></i> Précédent
-                        </button>
-                        <button class="btn-next" onclick="nextStep(3)">
-                            Suivant <i class="fas fa-arrow-right"></i>
-                        </button>
+                    <div class="upload-requirements">
+                        <h4><i class="fas fa-info-circle"></i> Exigences de téléchargement :</h4>
+                        <ul>
+                            <li>Taille maximale par fichier : 5MB</li>
+                            <li>Formats acceptés : PDF, JPG, PNG</li>
+                            <li>Les documents doivent être clairs et lisibles</li>
+                            <li>Tous les documents seront vérifiés par notre équipe</li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Step 3: Vérification et Soumission -->
-                <div class="form-step" id="step3">
-                    <div class="form-header">
-                        <h2><i class="fas fa-clipboard-check"></i> Vérification et Soumission</h2>
-                        <p>Vérifiez vos informations avant soumission</p>
-                    </div>
+                <div class="step-buttons">
+                    <button class="btn-prev" onclick="prevStep(1)">
+                        <i class="fas fa-arrow-left"></i> Précédent
+                    </button>
+                    <button class="btn-next" onclick="nextStep(3)">
+                        Suivant <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
 
-                    <div class="review-section">
-                        <div class="review-card">
-                            <h3><i class="fas fa-user-tie"></i> Informations Personnelles</h3>
-                            <div class="review-details">
-                                <div class="review-item">
-                                    <span>Nom complet :</span>
-                                    <span id="reviewName">-</span>
-                                </div>
-                                <div class="review-item">
-                                    <span>Email :</span>
-                                    <span id="reviewEmail">-</span>
-                                </div>
-                                <div class="review-item">
-                                    <span>Téléphone :</span>
-                                    <span id="reviewPhone">-</span>
-                                </div>
-                                <div class="review-item">
-                                    <span>Type de professionnel :</span>
-                                    <span id="reviewRole">-</span>
-                                </div>
-                                <div class="review-item">
-                                    <span>Expérience :</span>
-                                    <span id="reviewExperience">-</span>
-                                </div>
-                                <div class="review-item">
-                                    <span>Tarif :</span>
-                                    <span id="reviewTarif">-</span>
-                                </div>
+            <!-- Step 3: Vérification et Soumission -->
+            <div class="form-step" id="step3">
+                <div class="form-header">
+                    <h2><i class="fas fa-clipboard-check"></i> Vérification et Soumission</h2>
+                    <p>Vérifiez vos informations avant soumission</p>
+                </div>
+
+                <div class="review-section">
+                    <div class="review-card">
+                        <h3><i class="fas fa-user-tie"></i> Informations Personnelles</h3>
+                        <div class="review-details">
+                            <div class="review-item">
+                                <span>Nom complet :</span>
+                                <span id="reviewName">-</span>
+                            </div>
+                            <div class="review-item">
+                                <span>Email :</span>
+                                <span id="reviewEmail">-</span>
+                            </div>
+                            <div class="review-item">
+                                <span>Téléphone :</span>
+                                <span id="reviewPhone">-</span>
+                            </div>
+                            <div class="review-item">
+                                <span>Type de professionnel :</span>
+                                <span id="reviewRole">-</span>
+                            </div>
+                            <div class="review-item">
+                                <span>Expérience :</span>
+                                <span id="reviewExperience">-</span>
+                            </div>
+                            <div class="review-item">
+                                <span>Tarif :</span>
+                                <span id="reviewTarif">-</span>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="review-card">
-                            <h3><i class="fas fa-file-alt"></i> Documents</h3>
-                            <div class="review-details">
-                                <div class="review-item">
-                                    <span>Carte professionnelle :</span>
-                                    <span id="reviewCard">Non téléchargé</span>
-                                </div>
-                                <!-- <div class="review-item">
+                    <div class="review-card">
+                        <h3><i class="fas fa-file-alt"></i> Documents</h3>
+                        <div class="review-details">
+                            <div class="review-item">
+                                <span>Carte professionnelle :</span>
+                                <span id="reviewCard">Non téléchargé</span>
+                            </div>
+                            <!-- <div class="review-item">
                                     <span>Diplômes :</span>
                                     <span id="reviewDiplomas">Non téléchargés</span>
                                 </div>
@@ -421,93 +434,95 @@ if ($isEdit) {
                                     <span>Pièce d'identité :</span>
                                     <span id="reviewId">Non téléchargée</span>
                                 </div> -->
-                            </div>
-                        </div>
-
-                        <div class="form-group checkbox-group">
-                            <input type="checkbox" id="pro_terms" name="pro_terms" required>
-                            <label for="pro_terms">
-                                Je certifie que toutes les informations fournies sont exactes et j'accepte les
-                                <a href="#">Conditions d'utilisation</a> et la <a href="#">Politique de confidentialité</a>
-                            </label>
-                        </div>
-
-                        <div class="verification-notice">
-                            <div class="notice-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="notice-content">
-                                <h4>Processus de vérification</h4>
-                                <p>Après soumission, votre demande sera examinée par notre équipe d'administration.
-                                    Ce processus prend généralement 2-3 jours ouvrables. Vous recevrez une notification
-                                    par email une fois votre compte approuvé.</p>
-                            </div>
                         </div>
                     </div>
 
-                    <!-- Login Form -->
-                    <div class="login-form-container">
-                        <div class="form-header">
-                            <h2><i class="fas fa-sign-in-alt"></i> Se Connecter</h2>
-                            <p>Accédez à votre compte ISTICHARA</p>
-                        </div>
-
-                        <form id="loginForm" class="login-form">
-                            <div class="form-group">
-                                <label for="login_email">
-                                    <i class="fas fa-envelope"></i> Email
-                                </label>
-                                <input type="email" id="login_email" name="email" required placeholder="votre@email.com">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="login_password">
-                                    <i class="fas fa-lock"></i> Mot de passe
-                                </label>
-                                <div class="password-input">
-                                    <input type="password" id="login_password" name="password" required placeholder="Votre mot de passe">
-                                    <button type="button" class="password-toggle">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group checkbox-group">
-                                    <input type="checkbox" id="remember_me" name="remember_me">
-                                    <label for="remember_me">Se souvenir de moi</label>
-                                </div>
-
-                                <div class="form-group">
-                                    <a href="#" class="forgot-password">Mot de passe oublié ?</a>
-                                </div>
-                            </div>
-
-                            <p>Déjà inscrit ? <button id="loginToggleBtn" class="login-toggle-btn">Se connecter</button></p>
-
-
-                            <div class="form-footer">
-                                <p>Pas encore de compte ? <a href="#" class="switch-to-register">S'inscrire</a></p>
-                            </div>
-                        </form>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="pro_terms" name="pro_terms" required>
+                        <label for="pro_terms">
+                            Je certifie que toutes les informations fournies sont exactes et j'accepte les
+                            <a href="#">Conditions d'utilisation</a> et la <a href="#">Politique de confidentialité</a>
+                        </label>
                     </div>
 
-                    <div class="step-buttons">
-                        <button class="btn-prev" onclick="prevStep(2)">
-                            <i class="fas fa-arrow-left"></i> Précédent
-                        </button>
-                        <button type="button" class="submit-btn" onclick="submitProfessionalForm()">
-                            <i class="fas fa-paper-plane"></i> Soumettre la demande
-                        </button>
+                    <div class="verification-notice">
+                        <div class="notice-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="notice-content">
+                            <h4>Processus de vérification</h4>
+                            <p>Après soumission, votre demande sera examinée par notre équipe d'administration.
+                                Ce processus prend généralement 2-3 jours ouvrables. Vous recevrez une notification
+                                par email une fois votre compte approuvé.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </main>
 
-        <!-- Section pour la gestion des données existantes (Add/Update) -->
-        <div class="data-management-section" style="display: none;" id="dataManagementSection">
-            <!-- Cette section peut être utilisée pour l'édition/ajout dynamique -->
+                <!-- Login Form -->
+
+                <div class="step-buttons">
+                    <button class="btn-prev" onclick="prevStep(2)">
+                        <i class="fas fa-arrow-left"></i> Précédent
+                    </button>
+                    <button type="button" class="submit-btn" onclick="submitProfessionalForm()">
+                        <i class="fas fa-paper-plane"></i> Soumettre la demande
+                    </button>
+                </div>
+            </div>
+            <p>Déjà inscrit ?</p>
+            <button type="button" class="loginToggleBtn" class="login-toggle-btn">Se connecter</button>
+
+    </div>
+    <div class="login-form-container">
+        <div class="form-header">
+            <h2><i class="fas fa-sign-in-alt"></i> Se Connecter</h2>
+            <p>Accédez à votre compte ISTICHARA</p>
         </div>
+
+        <form id="loginForm" class="login-form">
+            <div class="form-group">
+                <label for="login_email">
+                    <i class="fas fa-envelope"></i> Email
+                </label>
+                <input type="email" id="login_email" name="email" required placeholder="votre@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="login_password">
+                    <i class="fas fa-lock"></i> Mot de passe
+                </label>
+                <div class="password-input">
+                    <input type="password" id="login_password" name="password" required placeholder="Votre mot de passe">
+                    <button type="button" class="password-toggle">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="remember_me" name="remember_me">
+                    <label for="remember_me">Se souvenir de moi</label>
+                </div>
+
+                <div class="form-group">
+                    <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+                </div>
+            </div>
+
+
+            <div class="form-footer">
+                <button type="button" id="inscrire">S'inscrire</button>
+            </div>
+        </form>
+    </div>
+
+    </main>
+
+    <!-- Section pour la gestion des données existantes (Add/Update) -->
+    <div class="data-management-section" style="display: none;" id="dataManagementSection">
+        <!-- Cette section peut être utilisée pour l'édition/ajout dynamique -->
+    </div>
     </div>
     <script src="./script/script.js"></script>
 </body>

@@ -27,9 +27,22 @@ class personService
             'fullname' => 'Full name',
             'email' => 'Email',
             'phone' => 'Phone',
+            'password' => 'Password',
+            'role' => 'Role',
             'experience' => 'Experience',
             'tarif' => 'Tarif',
-            'ville_id' => 'Ville ID'
+            'speciality' => '',
+            'ville_id' => 'Ville ID',
+            'fichier_acceptation' => 'Fichier acceptation',
+
+        ];
+
+        $clinetRequiredFields = [
+
+            'fullname' => 'Full name',
+            'email' => 'Email',
+            'phone' => 'Phone',
+            'password' => 'Password',
         ];
 
         if (isset($data['role']) && $data['role'] === 'avocat') {
@@ -39,13 +52,24 @@ class personService
             $requiredFields['type_actes'] = 'Type of Acts';
         }
 
-        foreach ($requiredFields as $field => $label) {
-            if (empty($data[$field])) {
-                throw new Exception("$label is required");
-            }
-        }
+        if ($data['role'] === 'client') {
 
-        return true;
+            foreach ($clinetRequiredFields as $field => $label) {
+                if (empty($data[$field])) {
+                    throw new Exception("$label is required");
+                }
+                return true;
+            }
+        } elseif ($data['role'] === 'avocat' || $data['role'] === 'huissier') {
+
+            foreach ($requiredFields as $field => $label) {
+                if (empty($data[$field])) {
+                    throw new Exception("$label is required");
+                }
+            }
+
+            return true;
+        }
     }
 
     public function Store($data)
@@ -59,21 +83,31 @@ class personService
             if ($data['role'] === 'huissier') {
                 $data['speciality'] = null;
                 $data['consultate_online'] = null;
-                
+            }
+            if ($data['role'] === 'client') {
+                $data['type_actes'] = null;
+                $data['speciality'] = null;
+                $data['consultate_online'] = null;
+                $data['tarif'] = null;
+                $data['experience'] = null;
+                $data['fichier_acceptation'] = null;
+                $data['ville_id'] = null;
+                $data['phone'] = null;
             }
 
             $person = [
-
                 'fullname' => $data['fullname'],
                 'email' => $data['email'],
                 'phone' => $data['phone'],
+                'password' => $data['password'],
                 'experience' => $data['experience'],
                 'tarif' => $data['tarif'],
+                'role' => $data['role'],
                 'speciality' => $data['speciality'],
                 'consultate_online' => $data['consultate_online'],
                 'type_actes' => $data['type_actes'],
                 'ville_id' => $data['ville_id'],
-
+                'fichier_acceptation' => $data['fichier_acceptation']
             ];
 
 

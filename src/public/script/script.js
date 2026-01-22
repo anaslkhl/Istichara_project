@@ -41,260 +41,88 @@ async function getData() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-<<<<<<< HEAD
-  const tabButtons = document.querySelectorAll(".tab-btn");
-  tabButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const userType = this.dataset.type;
-=======
-  console.log("Form script loaded");
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll(".tab-btn");
+  const forms = document.querySelectorAll(".form-container");
 
-  const tabButtons = document.querySelectorAll(".tab-btn");
-  const formContainers = document.querySelectorAll(".form-container");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const type = tab.dataset.type;
 
-  tabButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const type = this.getAttribute("data-type");
->>>>>>> main
+      tabs.forEach((t) => t.classList.remove("active"));
+      forms.forEach((f) => f.classList.remove("active"));
 
-      tabButtons.forEach((btn) => btn.classList.remove("active"));
-      this.classList.add("active");
+      tab.classList.add("active");
+      document.getElementById(type + "FormContainer")?.classList.add("active");
 
-<<<<<<< HEAD
-      document.querySelectorAll(".form-container").forEach((form) => {
-        form.classList.remove("active");
-      });
-
-      document
-        .getElementById(userType + "FormContainer")
-        .classList.add("active");
-    });
-  });
-=======
-      formContainers.forEach((container) => {
-        container.classList.remove("active");
-        if (container.id === type + "FormContainer") {
-          container.classList.add("active");
-        }
-      });
-
-      if (type === "professional") {
-        goToStep(1);
-      }
+      if (type === "professional") goToStep(1);
     });
   });
 
   let currentStep = 1;
   const totalSteps = 3;
 
-  document.querySelectorAll(".btn-next").forEach((button) => {
-    button.addEventListener("click", function () {
-      if (currentStep < totalSteps) {
-        goToStep(currentStep + 1);
-      }
-    });
-  });
+  window.goToStep = (step) => {
+    currentStep = step;
 
-  document.querySelectorAll(".btn-prev").forEach((button) => {
-    button.addEventListener("click", function () {
-      if (currentStep > 1) {
-        goToStep(currentStep - 1);
-      }
-    });
-  });
+    document
+      .querySelectorAll(".form-step")
+      .forEach((s) => s.classList.remove("active"));
+    document.getElementById("step" + step)?.classList.add("active");
 
-  function goToStep(stepNumber) {
-    document.querySelectorAll(".form-step").forEach((step) => {
-      step.classList.remove("active");
-    });
-
-    const stepElement = document.getElementById("step" + stepNumber);
-    if (stepElement) {
-      stepElement.classList.add("active");
-    }
-
-    updateProgressBar(stepNumber);
-
-    document.querySelectorAll(".step").forEach((step) => {
-      const stepValue = parseInt(step.getAttribute("data-step"));
-      if (stepValue <= stepNumber) {
-        step.classList.add("active");
-      } else {
-        step.classList.remove("active");
-      }
-    });
-
-    currentStep = stepNumber;
-  }
-
-  function updateProgressBar(step) {
     const progress = ((step - 1) / (totalSteps - 1)) * 100;
-    const progressBar = document.getElementById("progressBar");
-    if (progressBar) {
-      progressBar.style.width = progress + "%";
-    }
-  }
+    const bar = document.getElementById("progressBar");
+    if (bar) bar.style.width = progress + "%";
+  };
+
+  document
+    .querySelectorAll(".btn-next")
+    .forEach((b) =>
+      b.addEventListener(
+        "click",
+        () => currentStep < totalSteps && goToStep(currentStep + 1),
+      ),
+    );
+
+  document
+    .querySelectorAll(".btn-prev")
+    .forEach((b) =>
+      b.addEventListener(
+        "click",
+        () => currentStep > 1 && goToStep(currentStep - 1),
+      ),
+    );
 
   const roleSelect = document.getElementById("pro_role");
-  if (roleSelect) {
-    roleSelect.addEventListener("change", function () {
-      const role = this.value;
+  const avocat = document.getElementById("avocatFields");
+  const huissier = document.getElementById("huissierFields");
 
-      document.getElementById("avocatFields").style.display = "none";
-      document.getElementById("huissierFields").style.display = "none";
+  roleSelect?.addEventListener("change", () => {
+    avocat.style.display = roleSelect.value === "avocat" ? "block" : "none";
+    huissier.style.display = roleSelect.value === "huissier" ? "block" : "none";
+  });
 
-      if (role === "avocat") {
-        document.getElementById("avocatFields").style.display = "block";
-      } else if (role === "huissier") {
-        document.getElementById("huissierFields").style.display = "block";
-      }
-    });
-  }
-
-  document.querySelectorAll(".password-toggle").forEach((button) => {
-    button.addEventListener("click", function () {
-      const input = this.parentElement.querySelector("input");
-      const icon = this.querySelector("i");
-
-      if (input.type === "password") {
-        input.type = "text";
-        icon.classList.remove("fa-eye");
-        icon.classList.add("fa-eye-slash");
-      } else {
-        input.type = "password";
-        icon.classList.remove("fa-eye-slash");
-        icon.classList.add("fa-eye");
-      }
+  document.querySelectorAll(".password-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const input = btn.previousElementSibling;
+      input.type = input.type === "password" ? "text" : "password";
     });
   });
 
-  document.querySelectorAll(".upload-btn").forEach((button) => {
-    button.addEventListener("click", function () {
-      const uploadArea = this.closest(".upload-area");
-      const inputId = uploadArea.id.replace("Upload", "");
-      const fileInput = document.getElementById(inputId);
-
-      if (fileInput) {
-        fileInput.click();
-      }
-    });
+  const loginBtn = document.querySelector(".loginToggleBtn");
+  const loginBox = document.querySelector(".login-form-container");
+  const formcont = document.querySelector(".form-container");
+  const inscrire = document.querySelector("#inscrire");
+  loginBtn?.addEventListener("click", () => {
+    console.log("cooomed");
+    loginBox.classList.toggle("active");
+    formcont.style.display = "none";
+    document.querySelector("#professionalFormContainer").style.display = "none";
   });
 
-  document.querySelectorAll('input[type="file"]').forEach((input) => {
-    input.addEventListener("change", function () {
-      const uploadArea = this.closest(".upload-area");
-      const fileInfo = uploadArea.querySelector(".file-info");
-
-      if (this.files.length > 0) {
-        if (this.multiple) {
-          const fileNames = Array.from(this.files)
-            .map((file) => file.name)
-            .join(", ");
-          fileInfo.textContent = `${this.files.length} fichier(s) sélectionné(s)`;
-        } else {
-          const file = this.files[0];
-          fileInfo.textContent = file.name;
-        }
-        fileInfo.style.color = "#28a745";
-      } else {
-        fileInfo.textContent = "Aucun fichier sélectionné";
-        fileInfo.style.color = "#6c757d";
-      }
-    });
-  });
-
-  const submitBtn = document.querySelector(
-    '.submit-btn[onclick*="submitProfessionalForm"]',
-  );
-  if (submitBtn) {
-    submitBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      const requiredFields = document.querySelectorAll("[required]");
-      let isValid = true;
-
-      requiredFields.forEach((field) => {
-        if (!field.value.trim()) {
-          isValid = false;
-          field.style.borderColor = "#dc3545";
-        } else {
-          field.style.borderColor = "";
-        }
-      });
-
-      if (!isValid) {
-        alert("Veuillez remplir tous les champs obligatoires.");
-        return;
-      }
-
-      const terms = document.getElementById("pro_terms");
-      if (terms && !terms.checked) {
-        alert("Veuillez accepter les conditions d'utilisation.");
-        return;
-      }
-
-      alert("Formulaire soumis avec succès!");
-    });
-  }
-
-  const clientForm = document.getElementById("clientForm");
-  if (clientForm) {
-    clientForm.addEventListener("submit", function (e) {
-      const password = document.getElementById("client_password");
-      const confirmPassword = document.getElementById(
-        "client_confirm_password",
-      );
-
-      if (
-        password &&
-        confirmPassword &&
-        password.value !== confirmPassword.value
-      ) {
-        e.preventDefault();
-        alert("Les mots de passe ne correspondent pas.");
-        return;
-      }
-
-      const terms = document.getElementById("client_terms");
-      if (terms && !terms.checked) {
-        e.preventDefault();
-        alert("Veuillez accepter les conditions d'utilisation.");
-        return;
-      }
-
-      console.log("Client form submitted");
-    });
-  }
+  // inscrire.addEventListener("click", () => {
+  //   loginBox.classList.toggle("active");
+  //   formcont.style.display = "block";
+  // });
 });
-
-function toggleLoginForm() {
-  const loginFormContainer = document.querySelector(".login-form-container");
-  if (loginFormContainer) {
-    if (
-      loginFormContainer.style.display === "none" ||
-      loginFormContainer.style.display === ""
-    ) {
-      loginFormContainer.style.display = "block";
-    } else {
-      loginFormContainer.style.display = "none";
-    }
-  }
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  const loginBtn = document.getElementById("loginToggleBtn");
-
-  const loginForm = document.querySelector(".login-form-container");
-
-  if (loginBtn && loginForm) {
-    loginBtn.addEventListener("click", function () {
-      if (loginForm.style.display === "none") {
-        loginForm.style.display = "block";
-      } else {
-        loginForm.style.display = "none";
-      }
-    });
-  }
->>>>>>> main
-});
+// document.querySelector("#professionalFormContainer").style.display = "block";

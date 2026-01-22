@@ -1,35 +1,21 @@
-<<<<<<< HEAD
-FROM php:8.2-fpm
-=======
-FROM php:8.2-fpm-bookworm
->>>>>>> main
+FROM php:8.4-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
+    zip \
+    unzip \
     git \
     curl \
     libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
     libonig-dev \
     libxml2-dev \
-    zip \
-    unzip \
+    libzip-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo pdo_mysql gd zip \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
-
-# Install Composer directly (alternative to COPY --from)
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Create a non-root user
-RUN useradd -m -u 1000 dockeruser
-USER dockeruser
 
 # Set working directory
 WORKDIR /var/www/html
-
-# Copy application with correct permissions
-COPY --chown=dockeruser:dockeruser src/ /var/www/html/
-
-EXPOSE 9000
-CMD ["php-fpm"]

@@ -48,7 +48,7 @@
                         </span>
                     </div>
                     <div class="card-body">
-                        <p><strong>Spécialité:</strong> <?= htmlspecialchars($person['speciality'] ?? $person['type_actes']) ?></p>
+                        <p><strong>Spécialité:</strong> <?= ($person['speciality'] ?? $person['type_actes']) ?></p>
                         <p><strong>Expérience:</strong> <?= htmlspecialchars($person['experience']) ?> ans</p>
                         <p><strong>Tarif:</strong> <?= htmlspecialchars($person['tarif']) ?> MAD</p>
                         <?php if (!empty($person['consultate_online'])): ?>
