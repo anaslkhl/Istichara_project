@@ -185,4 +185,26 @@ class personRepository
         $stmt->execute();
         return $stmt->fetchAll();
     }
+    ///statistique task
+    public function chifresAffaires(){
+        $stmt =$this->db->prepare("select sum((timestampdiff(minute,date_debut, date_fin)/60)*person.tarif) as chiffre from reservation JOIN person on person.id = reservation.professionnel_id ") ;
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+    public function total_houres_worked(){
+        $stmt =$this->db->prepare ("select sum(timestampdiff(minute,date_debut, date_fin)/60) from reservation where statut = 'valide'");
+        $stmt->execute();
+        return $stmt->fetchColumn();
+
+    }
+    public function unique_clients(){
+        $stmt = $this->db->prepare("select count(distinct client_id) from reservation where statut = 'valide'");
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+    public function totale_resarvation(){
+        $stmt = $this->db->prepare("select count(*) as total from reservation");
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
 }
