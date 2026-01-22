@@ -64,7 +64,7 @@ $total_reservation = $service->total_reservation();
             </div>
             <div class="dash-card dash-card-gold">
                 <p class="dash-card-label">Nombre total de demandes reçues</p>
-                <p class="dash-card-value"><?= $total_reservation . "Reservations reçues" ?> </p>
+                <p class="dash-card-value"><?= $total_reservation . "demandes reçues" ?> </p>
             </div>
         </div>
 

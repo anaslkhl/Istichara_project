@@ -88,4 +88,7 @@ class personController
     {
         require __DIR__ . '/../public/clientInscription.php';
     }
+    public function professional_dashboared(){
+        require __DIR__ . '/../public/professionel_dashboard.php';
+    }
 }
