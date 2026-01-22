@@ -1,0 +1,13 @@
+Options -Indexes
+DirectoryIndex index.php
+
+RewriteEngine On
+
+# Do NOT redirect /
+RewriteRule ^$ index.php [L]
+
+
+# Rewrite other routes internally
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]

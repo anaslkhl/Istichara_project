@@ -17,5 +17,6 @@ $router->get('/clientInscription', 'personController@clientInscription');
 $router->get('/avocat', 'avocatController@avocat');
 $router->get('/huisser', 'huisserController@huisser');
 $router->get('/person', 'personController@person');
+$router->get('/professional_dashboared', 'personController@professional_dashboared');
 
    $router->get('/professionals.php', 'personController@professionals');

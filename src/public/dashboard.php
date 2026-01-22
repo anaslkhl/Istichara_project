@@ -6,12 +6,20 @@ require_once "../autoload.php";
 
 $service = new personService();
 
+
 $totalAvocats   = $service->countByType('avocat');
 $totalHuissiers = $service->countByType('huissier');
 
 $byCity     = $service->getByCity();
 
 $topAvocats = $service->topAvocats();
+
+///statistique 
+
+$total_houres_worked = $service->houres_worked();
+$chiffres_affaires = $service->chiffre_afaires();
+$total_unique_clients = $service->unique_clients();
+$total_reservation = $service->total_reservation();
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +49,22 @@ $topAvocats = $service->topAvocats();
             <div class="dash-card dash-card-green">
                 <p class="dash-card-label">Huissiers</p>
                 <p class="dash-card-value"><?= $totalHuissiers ?></p>
+            </div>
+            <div class="dash-card dash-card-red">
+                <p class="dash-card-label">Cumul des heures de travail effectuées</p>
+                <p class="dash-card-value"><?= intval($total_houres_worked) ."h" . ($total_houres_worked-intval($total_houres_worked))*60 . "min" ?> </p>
+            </div>
+            <div class="dash-card dash-card-yellow">
+                <p class="dash-card-label">Totale de chiffres D'affaires</p>
+                <p class="dash-card-value"><?= intval($chiffres_affaires) . "Dh" ?> </p>
+            </div>
+            <div class="dash-card dash-card-dark">
+                <p class="dash-card-label">Nombre de clients uniques</p>
+                <p class="dash-card-value"><?= $total_unique_clients . " Clients" ?> </p>
+            </div>
+            <div class="dash-card dash-card-gold">
+                <p class="dash-card-label">Nombre total de demandes reçues</p>
+                <p class="dash-card-value"><?= $total_reservation . "demandes reçues" ?> </p>
             </div>
         </div>
 
