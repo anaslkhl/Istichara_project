@@ -19,7 +19,7 @@
             <h2>Set Availability</h2>
 
             <!-- FORM -->
-            <form method="post" action="/../Controllers/availabilityController.php">
+            <form method="post" action="<?= $_ENV['base_url'] ?>/insertAvailability">
                 <div class="availability-form-group">
 
                     <div>
@@ -64,9 +64,9 @@
                     </div>
 
                 </div>
-                <a href="<?= $_ENV['base_url'] ?>/insertAvailability"><button type="submit" class="availability-button">
+                <button type="submit" class="availability-button">
                         Add Availability
-                    </button></a>
+                </button>
 
             </form>
 
@@ -98,11 +98,6 @@
                         </tr>
                     <?php endforeach;
                     ?>
-                    <tr>
-                        <td>2026-01-22</td>
-                        <td>08:00</td>
-                        <td>12:00</td>
-                    </tr>
                 </tbody>
             </table>
 
