@@ -20,5 +20,5 @@ $router->get('/person', 'personController@person');
 $router->get('/professional_dashboared', 'personController@professional_dashboared');
 $router->get('/professional_reservation', 'personController@professional_reservation');
 $router->get('/showprofile', 'personController@showprofile');
-
-   
+$router->get('/availability', 'availabilityController@availability');
+$router->get('/insertAvailability', 'availabilityController@insertAvailability');
