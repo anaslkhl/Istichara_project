@@ -91,4 +91,10 @@ class personController
     public function professional_dashboared(){
         require __DIR__ . '/../public/professionel_dashboard.php';
     }
+    public function professional_reservation(){
+        require __DIR__ . '/../public/professional_reservation.php';
+    }
+    public function professional_consultation(){
+        require __DIR__ . '/../public/professional_consultation.php';
+    }
 }
