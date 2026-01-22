@@ -25,22 +25,22 @@
         <!-- STAT CARDS -->
         <section class="dash-cards">
 
-            <div class="dash-card-blue">
+            <div class="dash-card dash-card-blue">
                 <p class="label">Total Consultations</p>
                 <p class="value">120</p>
             </div>
 
-            <div class="dash-card-green">
+            <div class="dash-card dash-card-green">
                 <p class="label">Heures travaillées</p>
                 <p class="value">86h 30min</p>
             </div>
 
-            <div class="dash-card-yellow">
+            <div class="dash-card dash-card-yellow">
                 <p class="label">Chiffre d'affaires</p>
                 <p class="value">14 500 DH</p>
             </div>
 
-            <div class="dash-card-red">
+            <div class="dash-card dash-card-red">
                 <p class="label">Demandes en attente</p>
                 <p class="value">7</p>
             </div>
