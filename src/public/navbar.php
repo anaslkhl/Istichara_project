@@ -18,25 +18,4 @@
         </div>
     </div>
 </nav>
-<?php
-function deshboard_profesionnel(){ ?>
-    <nav class="navbar">
-    <div class="container">
-        <a href="<?= $_ENV['base_url'] ?>/main" class="logo">ISTICHARA</a>
-
-        <ul class="nav-links">
-            <li><a href="<?= $_ENV['base_url'] ?>/dashboard">Dashboard</a></li>
-            <li><a href="<?= $_ENV['base_url'] ?>/dashboard">Reservation</a></li>
-            <li><a href="<?= $_ENV['base_url'] ?>/dashboard">Consultation</a></li>
-            <li><a href="<?= $_ENV['base_url'] ?>/dashboard">Logout</a></li>
-            
-       
-        </ul>
-        <div class="burger">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
- 
-<?php } ?>
 
