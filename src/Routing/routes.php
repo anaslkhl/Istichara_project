@@ -21,4 +21,4 @@ $router->get('/professional_dashboared', 'personController@professional_dashboar
 $router->get('/professional_reservation', 'personController@professional_reservation');
 $router->get('/showprofile', 'personController@showprofile');
 $router->get('/availability', 'availabilityController@availability');
-$router->get('/insertAvailability', 'availabilityController@insertAvailability');
+$router->post('/insertAvailability', 'availabilityController@insertAvailability');
