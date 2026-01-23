@@ -160,5 +160,19 @@ class personService
     public function total_demandes_attendus(){
         $total_demandes_attendus = new personRepository;
         return $total_demandes_attendus->total_demandes_attendus();
+    } 
+
+    /// show professionel profile 
+
+    public function getbyid($id){
+        $professionnel = new personRepository;
+        return $professionnel->getPerson($id);
+    }
+    
+    /// viewers task
+
+    public function viewers_profile(){
+        $viewers = new personRepository;
+        return $viewers->viewers_profile();
     }
 }

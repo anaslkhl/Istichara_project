@@ -97,4 +97,7 @@ class personController
     public function professional_consultation(){
         require __DIR__ . '/../public/professional_consultation.php';
     }
+    public function showprofile(){
+        require __DIR__ . '/../public/showprofile.php';
+    }
 }

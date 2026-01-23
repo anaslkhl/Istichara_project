@@ -107,7 +107,7 @@ class personRepository
         $con = $this->db;
         $stmt = $con->prepare('SELECT * FROM person WHERE id = :id');
         $stmt->execute(['id' => $id]);
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // public function filterByName($query)
@@ -228,6 +228,16 @@ class personRepository
         $stmt = $this->db->prepare("select count(*) as total_demandes_attendus from reservation where statut = 'en_attente' and professionnel_id=97");
         $stmt->execute();
         return $stmt->fetchColumn();
+    }
+    /// professionnel profile views task 
+    
+    public function viewers_profile(){
+        $id=$_GET['id'];
+        if (isset($_GET[$_ENV['base_url'].'/showprofile?id'])) {
+            $stmt =$this->db->prepare("update person set viewers = viewers+1 where id=:id  ");
+            $stmt->execute([':id'=>$id]);
+        }
+        
     }
 
     

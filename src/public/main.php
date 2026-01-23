@@ -10,7 +10,7 @@
 
 <body>
     <!-- Navbar -->
-    <?php require_once "./navbar.php"; ?>
+    <?php require_once "./navbar_user.php"; ?>
 
     <!-- Hero Section -->
     <header class="hero">
