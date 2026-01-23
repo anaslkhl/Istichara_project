@@ -23,5 +23,4 @@ $router->get('/showprofile', 'personController@showprofile');
 $router->get('/availability', 'availabilityController@availability');
 $router->post('/insertAvailability', 'availabilityController@insertAvailability');
 $router->get('/deleteAvailability', 'availabilityController@deleteAvailability');
-$router->get('/getAvailability', 'availabilityController@getAvailability');
 $router->post('/updateAvailability', 'availabilityController@updateAvailability');

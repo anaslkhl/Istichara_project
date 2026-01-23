@@ -45,13 +45,13 @@ class availabilityController
         exit;
     }
 
-    public function getAvailability()
-    {
-        $oldAvailability = $this->availabilityService->getAvailability($_GET['rowId']);
+    // public function getAvailability()
+    // {
+    //     $oldAvailability = $this->availabilityService->getAvailability($_GET['rowId']);
 
-        header('Location: ' . $_ENV['base_url'] . '/availability');
-        exit;
-    }
+    //     header('Location: ' . $_ENV['base_url'] . '/availability');
+    //     exit;
+    // }
 
     public function deleteAvailability()
     {
@@ -59,6 +59,11 @@ class availabilityController
 
         header('Location: ' . $_ENV['base_url'] . '/availability');
         exit;
+    }
+
+    public function setRowId()
+    {
+        require __DIR__ . '/../public/availabilityManagement.php';
     }
 
 }
