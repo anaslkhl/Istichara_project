@@ -10,10 +10,10 @@ class Database
 {
     private ?PDO $pdo;
 
-    private string $host = '98.91.230.238';
-    private string $dbname = 'mydb';
-    private string $username = 'admin';
-    private string $password = 'Admin123!';
+    private string $host = 'localhost';
+    private string $dbname = 'homedb';
+    private string $username = 'root';
+    private string $password = '';
 
     private static ?Database $instance = null;
 

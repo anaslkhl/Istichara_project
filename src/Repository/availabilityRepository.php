@@ -28,11 +28,37 @@ class availabilityRepository
             $timeTableRow['toHour']
         ]);
     }
+    
+    public function updateAvailability($timeTableRow)
+    {
+        $stmt = $this->db->prepare('update disponibilite set jour = ?, heure_debut = ?, heure_fin = ? where id = ?');
+        $stmt->execute([
+            $timeTableRow['jour'],
+            $timeTableRow['fromHour'],
+            $timeTableRow['toHour'],
+            $timeTableRow['rowId']
+        ]);
+    }
 
     public function getTimetable($professionalId):array
     {
-        $stmt = $this->db->prepare('select jour, heure_debut, heure_fin from disponibilite where professionnel_id = ?');
+        $stmt = $this->db->prepare('select * from disponibilite where professionnel_id = ?');
         $stmt->execute([$professionalId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getavailability($rowId)
+    {
+        $stmt = $this->db->prepare('select * from disponibilite where id = ?');
+        $stmt->execute([$rowId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);// i do not know if this will work(cs i'm only getting one row)
+    }
+
+
+    public function deleteAvailability($rowId)
+    {
+        $stmt = $this->db->prepare('delete from disponibilite where id = ?');
+        $stmt->execute([$rowId]);
+    }
+
 }
