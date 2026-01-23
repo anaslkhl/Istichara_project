@@ -42,7 +42,7 @@ class availabilityRepository
 
     public function getTimetable($professionalId):array
     {
-        $stmt = $this->db->prepare('select * from disponibilite where professionnel_id = ?');
+        $stmt = $this->db->prepare('select id, professionnel_id, jour, HOUR(heure_debut) as heure_debut, HOUR(heure_fin) as heure_fin from disponibilite where professionnel_id = ?');
         $stmt->execute([$professionalId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

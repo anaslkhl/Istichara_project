@@ -33,8 +33,8 @@ class availabilityService
                 $timeTableRow = [
                     "proId"=> 179,// i'm waiting for the session id
                     "jour"=> $day,
-                    "fromHour"=> $start_hour,
-                    "toHour"=> $end_hour,
+                    "fromHour"=> $start_hour . ":00:00",
+                    "toHour"=> $end_hour . ":00:00",
                 ];
 
                 $this->availabilityRepository->insertAvailability($timeTableRow);
@@ -50,10 +50,11 @@ class availabilityService
 
     public function updateAvailability()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
-            $day = $_POST['day'];
-            $start_hour = $_POST['start_hour'];
-            $end_hour = $_POST['end_hour'];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['rowId'], $_POST['new_day'], $_POST['new_start_hour'], $_POST['new_end_hour'])) {
+            $rowId = $_POST['rowId'];
+            $day = $_POST['new_day'];
+            $start_hour = $_POST['new_start_hour'];
+            $end_hour = $_POST['new_end_hour'];
 
             // valid hours inputs
 
@@ -63,13 +64,13 @@ class availabilityService
             if ($start < $end) {
 
                 $timeTableRow = [
-                    "rowId"=>$_GET['rowId'],
+                    "rowId"=>$rowId,
                     "jour"=> $day,
-                    "fromHour"=> $start_hour,
-                    "toHour"=> $end_hour,
+                    "fromHour"=> $start_hour . ":00:00",
+                    "toHour"=> $end_hour . ":00:00",
                 ];
 
-                $this->availabilityRepository->insertAvailability($timeTableRow);
+                $this->availabilityRepository->updateAvailability($timeTableRow);
                 
             }
         }

@@ -60,16 +60,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-
-// added by hafid
-function toggleForm() {
-  // if (document.getElementById('modalll').style.display == 'none'){
-
-  //   document.getElementById('modalll').style.display = "block";
-  // }
-  // else{
-
-  //   document.getElementById('modalll').style.display = "none"
-  // }
-  document.getElementById('modalll').style.display = "block";
-}

@@ -1368,7 +1368,32 @@ textarea:focus {
 .availability-page .btn-delete:hover {
     background-color: #b71c1c;
 }
-#modalll{
-  display: none;
+.availability-page .availability-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.availability-page .availability-modal-content {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    width: 500px;
+}
+
+.availability-page .availability-modal-content h3 {
+    margin-top: 0;
+    color: #1976d2;
+}
+
+.availability-page .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
 }
 /* end of availability page style */
