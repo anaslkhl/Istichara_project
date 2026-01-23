@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       tabs.forEach((t) => t.classList.remove("active"));
       forms.forEach((f) => f.classList.remove("active"));
-
+      loginBox.classList.remove("active"); 
       tab.classList.add("active");
       document.getElementById(type + "FormContainer")?.classList.add("active");
 
@@ -111,13 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const loginBtn = document.querySelector(".loginToggleBtn");
   const loginBox = document.querySelector(".login-form-container");
-  const formcont = document.querySelector(".form-container");
-  const inscrire = document.querySelector("#inscrire");
+  const form = document.querySelectorAll(".form-container");
+
   loginBtn?.addEventListener("click", () => {
-    console.log("cooomed");
+    form.forEach((f) => f.classList.remove("active"));
+
     loginBox.classList.toggle("active");
-    formcont.style.display = "none";
-    document.querySelector("#professionalFormContainer").style.display = "none";
   });
 
   // inscrire.addEventListener("click", () => {
@@ -126,3 +125,29 @@ document.addEventListener("DOMContentLoaded", () => {
   // });
 });
 // document.querySelector("#professionalFormContainer").style.display = "block";
+
+const uploadForm = document.getElementById("uploadForm");
+
+uploadForm?.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  let formData = new FormData(this);
+
+  fetch("uploadfile.php", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => res.text())
+    .then((response) => {
+      if (response === "OK") {
+        alert("Upload successfully!");
+        goToStep(3);
+      } else {
+        alert("Upload failed");
+      }
+    });
+});
+
+document.querySelector("#submitbtn")?.addEventListener("click", () => {
+  document.getElementById("professionalStep1Form").submit();
+});

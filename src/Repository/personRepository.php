@@ -20,6 +20,9 @@ class personRepository
 
     public function createPerson($person)
     {
+
+        // var_dump($person);
+        // exit;
         try {
             $conn = $this->db;
             $stmt = $conn->prepare('INSERT INTO person (fullname, email, phone,	experience,	tarif,	speciality,	consultate_online,	type_actes,	ville_id, password, role, fichier_acceptation)
@@ -39,7 +42,10 @@ class personRepository
                 $person['role'],
                 $person['fichier_acceptation']
             ]);
+
+
             header('location: professionals');
+            print('success');
             return true;
         } catch (PDOException $er) {
             print('ErRor : ' . $er->getMessage());

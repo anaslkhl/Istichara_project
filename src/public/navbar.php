@@ -3,10 +3,10 @@
         <a href="<?= $_ENV['base_url'] ?>/main" class="logo">ISTICHARA</a>
 
         <ul class="nav-links">
-            <li><a href="/main">Home</a></li>
+            <!-- <li><a href="/main">Home</a></li>
             <li><a href="/dashboard">Dashboard</a></li>
             <li><a href="/professionals">Professionals</a></li>
-            <li><a href="/form">Add Person</a></li>
+            <li><a href="/form">Add Person</a></li> -->
             <!-- <li><a href="/clientInscription">client login</a></li>
             <li><a href="/professionalInscription">professional login</a></li>
         -->

@@ -1,18 +1,21 @@
 <?php
+session_start();
+
+$uploadDir = __DIR__ . '/uploads/';
 
 
-echo "<b>File to be uploaded: </b>" . $_FILES["uploadfile"]["name"] . "<br>";
-echo "<b>Type: </b>" . $_FILES["uploadfile"]["type"] . "<br>";
-echo "<b>File Size: </b>" . $_FILES["uploadfile"]["size"] / 1024 . "<br>";
-echo "<b>Store in: </b>" . $_FILES["uploadfile"]["tmp_name"] . "<br>";
+if(isset($_FILES['uploadfile']) && $_FILES['uploadfile']['error'] === 0){
+    $uploadDir = __DIR__ . '/uploads/';
+    if(!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+    
+    $fileName = basename($_FILES['uploadfile']['name']);
+    $targetFile = $uploadDir . $fileName;
 
-
-
-if (file_exists($_FILES['uploadfile']['name'])) {
-    echo "<h3>The file already exists</h3>";
+    if(move_uploaded_file($_FILES['uploadfile']['tmp_name'], $targetFile)){
+        $data['fichier_acceptation'] = $fileName;
+    } else {
+        throw new Exception("Erreur lors du téléchargement du fichier");
+    }
 } else {
-    move_uploaded_file($_FILES['uploadfile']['tmp_name'], $_FILES['uploadfile']['name']);
-    echo "<h3>File Successfully Uploaded</h3>";
+    throw new Exception("Aucun fichier téléchargé");
 }
-
-
