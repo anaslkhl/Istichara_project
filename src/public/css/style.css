@@ -1368,5 +1368,7 @@ textarea:focus {
 .availability-page .btn-delete:hover {
     background-color: #b71c1c;
 }
-
+#modalll{
+  display: none;
+}
 /* end of availability page style */

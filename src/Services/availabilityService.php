@@ -47,4 +47,42 @@ class availabilityService
     {
         return $this->availabilityRepository->getTimetable($professionalId);
     }
+
+    public function updateAvailability()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
+            $day = $_POST['day'];
+            $start_hour = $_POST['start_hour'];
+            $end_hour = $_POST['end_hour'];
+
+            // valid hours inputs
+
+            $start = (int) $start_hour;
+            $end = (int) $end_hour;
+
+            if ($start < $end) {
+
+                $timeTableRow = [
+                    "rowId"=>$_GET['rowId'],
+                    "jour"=> $day,
+                    "fromHour"=> $start_hour,
+                    "toHour"=> $end_hour,
+                ];
+
+                $this->availabilityRepository->insertAvailability($timeTableRow);
+                
+            }
+        }
+    }
+
+    public function getavailability($rowId)
+    {
+        return $this->availabilityRepository->getavailability($rowId);
+    }
+
+
+    public function deleteAvailability($rowId)
+    {
+        $this->availabilityRepository->deleteAvailability($rowId);
+    }
 }
