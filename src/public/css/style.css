@@ -182,24 +182,35 @@ body {
   font-size: 0.95rem;
 }
 
+/* CARD FOOTER */
 .card-footer {
   padding: 15px 20px;
-  text-align: center;
   background: #f5f5f5;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 }
-.del {
-  background-color: red;
+
+/* DELETE BUTTON */
+.card-footer .del {
+  background-color: #e53935;
   color: white;
   border: none;
   height: 35px;
   width: 120px;
   border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.card-footer .btn-view {
-  display: inline-block;
+.card-footer .del:hover {
+  background-color: #b71c1c;
+}
+
+/* EDIT BUTTON */
+.card-footer a.btn-view {
   background: #0d47a1;
   color: #fff;
   padding: 8px 18px;
@@ -209,9 +220,25 @@ body {
   transition: 0.3s;
 }
 
-.card-footer .btn-view:hover {
+.card-footer a.btn-view:hover {
   background: #ffc107;
   color: #000;
+}
+
+/* PROFILE BUTTON (FIXED) */
+.card-footer a.btn-profile {
+  background: #0aff81;
+  color: #020202;
+  padding: 8px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.card-footer a.btn-profile:hover {
+  background: #ff8b48;
+  color: #5c5757;
 }
 
 /* ========== Stats Cards ========== */
@@ -492,7 +519,9 @@ form .btn:hover {
   position: relative;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 /* Light reflection effect */
@@ -574,7 +603,7 @@ form .btn:hover {
 .dash-card-dark:hover {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
-.dash-card-gold{
+.dash-card-gold {
   background: linear-gradient(135deg, #ffc800, #ffc800);
 }
 .dash-card-gold:hover {
@@ -1277,137 +1306,4 @@ textarea:focus {
     padding: 10px 15px;
     font-size: 0.9rem;
   }
-}
-
-/* src/public/css/buttons.css */
-.tab-btn.active {
-  background: #007bff;
-  color: white;
-}
-
-.tab-btn {
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-#inscrire {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-.tab-btn:hover {
-  background: #e9ecef;
-}
-
-.form-container {
-  display: none;
-}
-
-.form-container.active {
-  display: block;
-}
-
-.form-step {
-  display: none;
-}
-
-.form-step.active {
-  display: block;
-}
-
-.btn-next,
-.btn-prev {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.btn-prev {
-  background: #6c757d;
-}
-
-.upload-btn {
-  background: #28a745;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.password-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #6c757d;
-}
-
-.step.active .step-circle {
-  background: #007bff;
-  color: white;
-}
-
-.step-circle {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: #e9ecef;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-}
-
-#progressBar {
-  height: 4px;
-  background: #007bff;
-  transition: width 0.3s;
-}
-
-/* Login button styling */
-.login-toggle-btn {
-  background: none;
-  border: none;
-  color: #4a90e2;
-  cursor: pointer;
-  font-size: inherit;
-  text-decoration: underline;
-  padding: 0;
-  margin: 0;
-}
-
-.loginToggleBtn {
-  background: none;
-  border: none;
-  color: #4a90e2;
-  cursor: pointer;
-  font-size: inherit;
-  text-decoration: underline;
-  padding: 0;
-  margin: 0;
-}
-.login-toggle-btn:hover {
-  color: #3a7bc8;
-}
-.login-form-container {
-  display: none;
-}
-
-#faa {
-  font-style: italic;
-  font-family: serif;
-  font-weight: 900;
-}
-
-.login-form-container.active {
-  display: block;
 }

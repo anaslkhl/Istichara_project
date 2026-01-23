@@ -185,6 +185,8 @@ class personService
         return $repo->getByCity();
     }
 
+
+    /// statistiques admin Task
     public function topAvocats(int $limit = 3): array
     {
         $repo = new personRepository();
@@ -209,5 +211,36 @@ class personService
     {
         $total_reservation = new personRepository;
         return $total_reservation->totale_resarvation();
+    }
+    ///statistiques professionnel Task
+    public function total_consultation(){
+        $total_consultation=new personRepository;
+        return $total_consultation->total_consultation();
+    }
+    public function total_houres_worked_person(){
+        $total_houres_worked_person = new personRepository;
+        return $total_houres_worked_person->total_houres_worked_person();
+    }
+    public function chiffres_affaires_person(){
+        $chiffres_affaires_person = new personRepository;
+        return $chiffres_affaires_person->chiffres_affaires_person();
+    }
+    public function total_demandes_attendus(){
+        $total_demandes_attendus = new personRepository;
+        return $total_demandes_attendus->total_demandes_attendus();
+    } 
+
+    /// show professionel profile 
+
+    public function getbyid($id){
+        $professionnel = new personRepository;
+        return $professionnel->getPerson($id);
+    }
+    
+    /// viewers task
+
+    public function viewers_profile(){
+        $viewers = new personRepository;
+        return $viewers->viewers_profile();
     }
 }
