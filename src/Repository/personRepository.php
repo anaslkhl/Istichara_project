@@ -34,6 +34,7 @@ class personRepository
                 $person['phone'],
                 $person['experience'],
                 $person['tarif'],
+
                 $person['speciality'],
                 $person['consultate_online'],
                 $person['type_actes'],
@@ -45,8 +46,7 @@ class personRepository
 
 
             header('location: professionals');
-            print('success');
-            return true;
+            // return true;
         } catch (PDOException $er) {
             print('ErRor : ' . $er->getMessage());
             return false;

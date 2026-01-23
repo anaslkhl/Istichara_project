@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   roleSelect?.addEventListener("change", () => {
     avocat.style.display = roleSelect.value === "avocat" ? "block" : "none";
-    huissier.style.display = roleSelect.value === "huissier" ? "block" : "none";
+    huissier.style.display = roleSelect.value === "huisser" ? "block" : "none";
   });
 
   document.querySelectorAll(".password-toggle").forEach((btn) => {
@@ -148,6 +148,3 @@ uploadForm?.addEventListener("submit", function (e) {
     });
 });
 
-document.querySelector("#submitbtn")?.addEventListener("click", () => {
-  document.getElementById("professionalStep1Form").submit();
-});

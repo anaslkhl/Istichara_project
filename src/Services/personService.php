@@ -46,22 +46,22 @@ class personService
         if (isset($data['role']) && $data['role'] === 'avocat') {
             $requiredFields['speciality'] = 'Speciality';
             $requiredFields['consultate_online'] = 'Consultation Online';
-        } elseif (isset($data['role']) && $data['role'] === 'huissier') {
+        } elseif (isset($data['role']) && $data['role'] === 'huisser') {
             $requiredFields['type_actes'] = 'Type of Acts';
         }
 
         if ($data['role'] === 'client') {
 
             foreach ($clinetRequiredFields as $field => $label) {
-                if (empty($data[$field])) {
+                if (!isset($data[$field]) || $data[$field] === '') {
                     throw new Exception("$label is required !");
                 }
             }
             return true;
-        } elseif ($data['role'] === 'avocat' || $data['role'] === 'huissier') {
+        } elseif ($data['role'] === 'avocat' || $data['role'] === 'huisser') {
 
             foreach ($requiredFields as $field => $label) {
-                if (empty($data[$field])) {
+                if (!isset($data[$field]) || $data[$field] === '') {
                     // var_dump($field);
                     throw new Exception("$label is required !!");
                 }
@@ -73,42 +73,43 @@ class personService
 
     public function Store($data)
     {
-        // var_dump($_POST);
-        // var_dump($_FILES);
-        // exit;
 
 
-        if (in_array($data['role'], ['avocat', 'huissier'])) {
+        if (in_array($data['role'], ['avocat', 'huisser'])) {
 
             $uploadDir = dirname(__DIR__) . '/public/uploads/';
 
-            if (
-                !isset($_FILES['uploadfile']) ||
-                $_FILES['uploadfile']['error'] !== UPLOAD_ERR_OK
-            ) {
+            if (!isset($_FILES['uploadfile']) || $_FILES['uploadfile']['error'] !== UPLOAD_ERR_OK) {
                 throw new Exception("Fichier requis");
             }
 
-            if (!is_writable($uploadDir)) {
-                throw new Exception("Dossier uploads non accessible");
-            }
+            $originalName = $_FILES['uploadfile']['name'];
+            $extension = pathinfo($originalName, PATHINFO_EXTENSION);
 
-            $fileName = time() . '_' . basename($_FILES['uploadfile']['name']);
+            $safeName = iconv('UTF-8', 'ASCII//TRANSLIT', pathinfo($originalName, PATHINFO_FILENAME));
+            $safeName = preg_replace('/[^A-Za-z0-9_-]/', '_', $safeName);
+
+            $fileName = time() . '_' . $safeName . '.' . $extension;
             $targetFile = $uploadDir . $fileName;
 
-            if (!move_uploaded_file($_FILES['uploadfile']['tmp_name'], $targetFile)) {
-                throw new Exception("Erreur lors du téléchargement");
+            if (file_exists($targetFile)) {
+                throw new Exception("Fichier déjà existant");
             }
+
+            // if (!move_uploaded_file($_FILES['uploadfile']['tmp_name'], $targetFile)) {
+            //     throw new Exception("Erreur upload");
+            // }
 
             $data['uploadfile'] = $fileName;
         }
-        
+
+
         if ($this->checkData($data)) {
 
             if ($data['role'] === 'avocat') {
                 $data['type_actes'] = null;
             }
-            if ($data['role'] === 'huissier') {
+            if ($data['role'] === 'huisser') {
                 $data['speciality'] = null;
                 $data['consultate_online'] = null;
             }
@@ -140,8 +141,6 @@ class personService
                 'fichier_acceptation' => $data['uploadfile'] ?? null
             ];
 
-            // var_dump($person);
-            // exit;
             return $this->repository->createPerson($person);
         }
     }
@@ -156,7 +155,7 @@ class personService
         if ($data['role'] === 'avocat') {
             $data['type_actes'] = null;
         }
-        if ($data['role'] === 'huissier') {
+        if ($data['role'] === 'huisser') {
             $data['speciality'] = null;
             $data['consultate_online'] = null;
         }
