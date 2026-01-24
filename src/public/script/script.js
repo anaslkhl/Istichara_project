@@ -41,22 +41,110 @@ async function getData() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const tabButtons = document.querySelectorAll(".tab-btn");
-  tabButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const userType = this.dataset.type;
+document.addEventListener("DOMContentLoaded", () => {
+  const tabs = document.querySelectorAll(".tab-btn");
+  const forms = document.querySelectorAll(".form-container");
 
-      tabButtons.forEach((btn) => btn.classList.remove("active"));
-      this.classList.add("active");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const type = tab.dataset.type;
 
-      document.querySelectorAll(".form-container").forEach((form) => {
-        form.classList.remove("active");
-      });
+      tabs.forEach((t) => t.classList.remove("active"));
+      forms.forEach((f) => f.classList.remove("active"));
+      loginBox.classList.remove("active"); 
+      tab.classList.add("active");
+      document.getElementById(type + "FormContainer")?.classList.add("active");
 
-      document
-        .getElementById(userType + "FormContainer")
-        .classList.add("active");
+      if (type === "professional") goToStep(1);
     });
   });
+
+  let currentStep = 1;
+  const totalSteps = 3;
+
+  window.goToStep = (step) => {
+    currentStep = step;
+
+    document
+      .querySelectorAll(".form-step")
+      .forEach((s) => s.classList.remove("active"));
+    document.getElementById("step" + step)?.classList.add("active");
+
+    const progress = ((step - 1) / (totalSteps - 1)) * 100;
+    const bar = document.getElementById("progressBar");
+    if (bar) bar.style.width = progress + "%";
+  };
+
+  document
+    .querySelectorAll(".btn-next")
+    .forEach((b) =>
+      b.addEventListener(
+        "click",
+        () => currentStep < totalSteps && goToStep(currentStep + 1),
+      ),
+    );
+
+  document
+    .querySelectorAll(".btn-prev")
+    .forEach((b) =>
+      b.addEventListener(
+        "click",
+        () => currentStep > 1 && goToStep(currentStep - 1),
+      ),
+    );
+
+  const roleSelect = document.getElementById("pro_role");
+  const avocat = document.getElementById("avocatFields");
+  const huissier = document.getElementById("huissierFields");
+
+  roleSelect?.addEventListener("change", () => {
+    avocat.style.display = roleSelect.value === "avocat" ? "block" : "none";
+    huissier.style.display = roleSelect.value === "huisser" ? "block" : "none";
+  });
+
+  document.querySelectorAll(".password-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const input = btn.previousElementSibling;
+      input.type = input.type === "password" ? "text" : "password";
+    });
+  });
+
+  const loginBtn = document.querySelector(".loginToggleBtn");
+  const loginBox = document.querySelector(".login-form-container");
+  const form = document.querySelectorAll(".form-container");
+
+  loginBtn?.addEventListener("click", () => {
+    form.forEach((f) => f.classList.remove("active"));
+
+    loginBox.classList.toggle("active");
+  });
+
+  // inscrire.addEventListener("click", () => {
+  //   loginBox.classList.toggle("active");
+  //   formcont.style.display = "block";
+  // });
 });
+// document.querySelector("#professionalFormContainer").style.display = "block";
+
+const uploadForm = document.getElementById("uploadForm");
+
+uploadForm?.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  let formData = new FormData(this);
+
+  fetch("uploadfile.php", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => res.text())
+    .then((response) => {
+      if (response === "OK") {
+        alert("Upload successfully!");
+        goToStep(3);
+      } else {
+        alert("Upload failed");
+      }
+    });
+});
+

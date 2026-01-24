@@ -24,3 +24,5 @@ $router->get('/availability', 'availabilityController@availability');
 $router->post('/insertAvailability', 'availabilityController@insertAvailability');
 $router->get('/deleteAvailability', 'availabilityController@deleteAvailability');
 $router->post('/updateAvailability', 'availabilityController@updateAvailability');
+
+$router->get('/professionals.php', 'personController@professionals');

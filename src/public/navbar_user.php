@@ -4,9 +4,7 @@
 
         <ul class="nav-links">
             <li><a href="<?= $_ENV['base_url'] ?>/main">Home</a></li>
-            <li><a href="<?= $_ENV['base_url'] ?>/professionals">Professionals</a></li>
-            <li><a href="<?= $_ENV['base_url'] ?>/clientInscription">Client Login</a></li>
-            <li><a href="<?= $_ENV['base_url'] ?>/professionalInscription">Professional Login</a></li>
+            <li><a href="<?= $_ENV['base_url'] ?>/form">Login/Singup</a></li>
         </ul>
     </div>
 </nav>

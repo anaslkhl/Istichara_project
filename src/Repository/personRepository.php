@@ -20,10 +20,13 @@ class personRepository
 
     public function createPerson($person)
     {
+
+        // var_dump($person);
+        // exit;
         try {
             $conn = $this->db;
-            $stmt = $conn->prepare('INSERT INTO person (fullname, email, phone,	experience,	tarif,	speciality,	consultate_online,	type_actes,	ville_id)
-                                VALUES (?,?,?,?,?,?,?,?,?)');
+            $stmt = $conn->prepare('INSERT INTO person (fullname, email, phone,	experience,	tarif,	speciality,	consultate_online,	type_actes,	ville_id, password, role, fichier_acceptation)
+                                VALUES (?,?,?,?,?,?,?,?,?,?,?,?)');
 
             $stmt->execute([
                 $person['fullname'],
@@ -31,13 +34,19 @@ class personRepository
                 $person['phone'],
                 $person['experience'],
                 $person['tarif'],
+
                 $person['speciality'],
                 $person['consultate_online'],
                 $person['type_actes'],
-                $person['ville_id']
+                $person['ville_id'],
+                $person['password'],
+                $person['role'],
+                $person['fichier_acceptation']
             ]);
+
+
             header('location: professionals');
-            return true;
+            // return true;
         } catch (PDOException $er) {
             print('ErRor : ' . $er->getMessage());
             return false;
