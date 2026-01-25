@@ -1,3 +1,10 @@
+<?php if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . "/layout/app.php";
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -10,7 +17,7 @@
 
 <body>
     <!-- Navbar -->
-    <?php require_once "./navbar_user.php"; ?>
+    <?php require_once __DIR__ . "/layout/app.php"; ?>
 
     <!-- Hero Section -->
     <header class="hero">

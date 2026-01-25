@@ -2,6 +2,7 @@
 
 namespace Services;
 
+use Middleware\AuthMiddleware;
 use Exception;
 use Repository\personRepository;
 
@@ -173,6 +174,12 @@ class personService
     }
 
 
+    public function getAllClients()
+    {
+        return $this->repository->getAllClients();
+    }
+
+
     public function countByType(string $type): int
     {
         $repo = new personRepository();
@@ -213,34 +220,98 @@ class personService
         return $total_reservation->totale_resarvation();
     }
     ///statistiques professionnel Task
-    public function total_consultation(){
-        $total_consultation=new personRepository;
+    public function total_consultation()
+    {
+        $total_consultation = new personRepository;
         return $total_consultation->total_consultation();
     }
-    public function total_houres_worked_person(){
+    public function total_houres_worked_person()
+    {
         $total_houres_worked_person = new personRepository;
         return $total_houres_worked_person->total_houres_worked_person();
     }
-    public function chiffres_affaires_person(){
+    public function chiffres_affaires_person()
+    {
         $chiffres_affaires_person = new personRepository;
         return $chiffres_affaires_person->chiffres_affaires_person();
     }
-    public function total_demandes_attendus(){
+    public function total_demandes_attendus()
+    {
         $total_demandes_attendus = new personRepository;
         return $total_demandes_attendus->total_demandes_attendus();
-    } 
+    }
 
     /// show professionel profile 
 
-    public function getbyid($id){
+    public function getbyid($id)
+    {
         $professionnel = new personRepository;
         return $professionnel->getPerson($id);
     }
-    
+
     /// viewers task
 
-    public function viewers_profile(){
+    public function viewers_profile()
+    {
         $viewers = new personRepository;
         return $viewers->viewers_profile();
+    }
+
+
+    /// Login && Logout handling service 
+
+
+    public function login($data)
+    {
+
+        $admail = 'admin@login.com';
+        $adpass = 'Admin!123';
+
+
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $email = trim($data['email']);
+        $password = trim($data['password']);
+
+        if ($email === $admail && $password === $adpass) {
+            $_SESSION['user'] = [
+                'email' => $admail,
+                'password' => $adpass,
+                'role' => 'admin'
+            ];
+            header('Location: /main');
+            exit;
+        }
+        $person = new personRepository();
+        $tarperson = $person->getByEmail($email);
+
+        if (!$tarperson) {
+            header('Location: /login?error=user_not_found');
+            exit;
+        }
+
+        if ($email === $tarperson['email'] && $password === $tarperson['password']) {
+            $_SESSION['user'] = [
+                'id' => $tarperson['id'],
+                'fullname' => $tarperson['fullname'],
+                'email' => $tarperson['email'],
+                'password' => $tarperson['password'],
+                'role' => $tarperson['role']
+            ];
+
+            header('Location: /main');
+            exit;
+        } else {
+            header('Location: /login?error=wrong_password');
+            exit;
+        }
+    }
+    public function logout()
+    {
+        $logout = Authmiddleware::logout();
+        header('Location: /main');
+        exit;
     }
 }

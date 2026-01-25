@@ -22,3 +22,7 @@ $router->get('/professional_reservation', 'personController@professional_reserva
 $router->get('/showprofile', 'personController@showprofile');
 
 $router->get('/professionals.php', 'personController@professionals');
+$router->post('/login', 'personController@login');
+$router->get('/logout', 'personController@logout');
+
+$router->get('/client', 'personController@getAllClients');
