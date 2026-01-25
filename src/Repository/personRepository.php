@@ -233,7 +233,7 @@ class personRepository
     
     public function viewers_profile(){
         $id=$_GET['id'];
-        if (isset($_GET[$_ENV['base_url'].'/showprofile?id'])) {
+        if (isset($id)) {
             $stmt =$this->db->prepare("update person set viewers = viewers+1 where id=:id  ");
             $stmt->execute([':id'=>$id]);
         }
