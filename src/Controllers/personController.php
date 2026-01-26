@@ -88,7 +88,45 @@ class personController
     {
         require __DIR__ . '/../public/clientInscription.php';
     }
-    public function professional_dashboared(){
+    public function professional_dashboared()
+    {
         require __DIR__ . '/../public/professionel_dashboard.php';
+    }
+    public function professional_reservation()
+    {
+        require __DIR__ . '/../public/professional_reservation.php';
+    }
+    public function professional_consultation()
+    {
+        require __DIR__ . '/../public/professional_consultation.php';
+    }
+    public function showprofile()
+    {
+        require __DIR__ . '/../public/showprofile.php';
+    }
+
+    public function getAllClients()
+    {
+        $cl = new personService();
+        $clients = $cl->getAllClients();
+        require_once __DIR__ . '/../public/client.php';
+    }
+
+    public function login()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $data = $_POST;
+            $log = new personService;
+            $log->login($data); // 👈 YOU FORGOT THIS
+
+            // require __DIR__ . '/../public/login.php';
+        }
+    }
+
+    public function logout()
+    {
+        $logout = new personService();
+        $logout->logout();
+        exit;
     }
 }

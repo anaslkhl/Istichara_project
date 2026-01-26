@@ -1,0 +1,28 @@
+<nav class="navbar">
+    <div class="container">
+        <a href="<?= $_ENV['base_url'] ?>/main" class="logo">ISTICHARA</a>
+
+        <ul class="nav-links">
+            <!-- <li><a href="/main">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/professionals">Professionals</a></li>
+            <li><a href="/form">Add Person</a></li> -->
+            <!-- <li><a href="/clientInscription">client login</a></li>
+            <li><a href="/professionalInscription">professional login</a></li>
+        -->
+            <li><a href="<?= $_ENV['base_url'] ?>/main">Home</a></li>
+            <li><a href="<?= $_ENV['base_url'] ?>/dashboard">Dashboard</a></li>
+            <li><a href="<?= $_ENV['base_url'] ?>/professionals">Professionals</a></li>
+            <li><a href="<?= $_ENV['base_url'] ?>/availability">Availability Management</a></li>
+            <li><a href="<?= $_ENV['base_url'] ?>/form">Add Person</a></li>
+            <li><a href="<?= $_ENV['base_url'] ?>/client">Clients</a></li>
+            <li><a href="<?= $_ENV['base_url'] ?>/logout" style="background-color: red;border-radius: 5px;">Logout</a></li>
+
+        </ul>
+        <div class="burger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</nav>

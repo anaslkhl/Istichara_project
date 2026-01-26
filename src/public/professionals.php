@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    require_once __DIR__ . "/layout/app.php";
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -11,8 +16,10 @@
 <body>
     <!-- Navbar -->
 
-    <?php require_once "./navbar.php";
+    <?php
+
     use Services\personService;
+
     $person = new personService();
     $persons = $person->getAll();
 
@@ -44,11 +51,11 @@
                     <div class="card-header">
                         <h3><?= htmlspecialchars($person['fullname']) ?></h3>
                         <span class="role-badge">
-                            <?= ($person['speciality']) ?>
+                            <?= ($person['role']) ?>
                         </span>
                     </div>
                     <div class="card-body">
-                        <p><strong>Spécialité:</strong> <?= htmlspecialchars($person['speciality'] ?? $person['type_actes']) ?></p>
+                        <p><strong>Spécialité:</strong> <?= ($person['speciality'] ?? $person['type_actes']) ?></p>
                         <p><strong>Expérience:</strong> <?= htmlspecialchars($person['experience']) ?> ans</p>
                         <p><strong>Tarif:</strong> <?= htmlspecialchars($person['tarif']) ?> MAD</p>
                         <?php if (!empty($person['consultate_online'])): ?>
@@ -57,9 +64,10 @@
                     </div>
                     <form class="card-footer" method="POST" action="delete">
                         <input type="hidden" name="delete" value="<?= htmlentities($person['id']) ?>">
-                        <button type="submit" for="delete" class="del">Delete</button>
-                        <a href="/form/<?= $person['id'] ?>" class="btn-view">Edit</a>
+                        <button type="submit" class="del">Delete</button>
+                        <a href="/showprofile?id=<?= $person['id'] ?>" class="btn-profile">View</a>
                     </form>
+
                 </div>
             <?php endforeach; ?>
         </div>

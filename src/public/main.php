@@ -1,3 +1,10 @@
+<?php if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . "/layout/app.php";
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -10,14 +17,14 @@
 
 <body>
     <!-- Navbar -->
-    <?php require_once "./navbar.php"; ?>
+    <?php require_once __DIR__ . "/layout/app.php"; ?>
 
     <!-- Hero Section -->
     <header class="hero">
         <div class="container">
             <h1>Bienvenue sur ISTICHARA</h1>
             <p>Accédez rapidement aux avocats et huissiers qualifiés au Maroc</p>
-            <a href="professionals.php" class="btn">Rechercher un professionnel</a>
+            <a href="<?= $_ENV['base_url'] ?>/professionals" class="btn">Rechercher un professionnel</a>
         </div>
     </header>
 

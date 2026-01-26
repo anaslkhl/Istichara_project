@@ -17,6 +17,21 @@ $router->get('/clientInscription', 'personController@clientInscription');
 $router->get('/avocat', 'avocatController@avocat');
 $router->get('/huisser', 'huisserController@huisser');
 $router->get('/person', 'personController@person');
-$router->get('/professional_dashboared', 'personController@professional_dashboared');
 
-   
+
+$router->get('/professional_dashboared', 'personController@professional_dashboared');
+$router->get('/professional_reservation', 'personController@professional_reservation');
+$router->get('/showprofile', 'personController@showprofile');
+$router->get('/availability', 'availabilityController@availability');
+$router->post('/insertAvailability', 'availabilityController@insertAvailability');
+$router->get('/deleteAvailability', 'availabilityController@deleteAvailability');
+$router->post('/updateAvailability', 'availabilityController@updateAvailability');
+$router->get('/professional_consultation', 'ConsultationController@index');
+$router->get('/consultation/accept/{id}', 'ConsultationController@accept');
+$router->get('/consultation/reject/{id}', 'ConsultationController@reject');
+
+$router->get('/professionals.php', 'personController@professionals');
+$router->post('/login', 'personController@login');
+$router->get('/logout', 'personController@logout');
+
+$router->get('/client', 'personController@getAllClients');
