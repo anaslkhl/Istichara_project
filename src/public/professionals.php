@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    require_once __DIR__ . "/layout/app.php";
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -11,7 +16,7 @@
 <body>
     <!-- Navbar -->
 
-    <?php require_once "./navbar_user.php";
+    <?php
 
     use Services\personService;
 
@@ -60,7 +65,6 @@
                     <form class="card-footer" method="POST" action="delete">
                         <input type="hidden" name="delete" value="<?= htmlentities($person['id']) ?>">
                         <button type="submit" class="del">Delete</button>
-                        <a href="/form/<?= $person['id'] ?>" class="btn-view">Edit</a>
                         <a href="/showprofile?id=<?= $person['id'] ?>" class="btn-profile">View</a>
                     </form>
 
