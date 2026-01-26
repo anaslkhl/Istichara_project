@@ -13,8 +13,16 @@
             <li><a href="<?= $_ENV['base_url'] ?>/main">Home</a></li>
             <li><a href="<?= $_ENV['base_url'] ?>/dashboard">Dashboard</a></li>
             <li><a href="<?= $_ENV['base_url'] ?>/professionals">Professionals</a></li>
+            <li><a href="<?= $_ENV['base_url'] ?>/availability">Availability Management</a></li>
             <li><a href="<?= $_ENV['base_url'] ?>/form">Add Person</a></li>
+<<<<<<< HEAD:src/public/nav/admin_navbar.php
             <li><a href="<?= $_ENV['base_url'] ?>/client">Clients</a></li>
+=======
+       
+            <li><a href="<?= $_ENV['base_url'] ?>/clientInscription">client login</a></li>
+            <li><a href="<?= $_ENV['base_url'] ?>/professionalInscription">professional login</a></li>
+
+>>>>>>> ae70bb51e768e94685fd19c050d03da9e0c47958:src/public/navbar.php
         </ul>
         <div class="burger">
             <div></div>

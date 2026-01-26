@@ -24,7 +24,7 @@ require_once __DIR__ . "/layout/app.php";
         <div class="container">
             <h1>Bienvenue sur ISTICHARA</h1>
             <p>Accédez rapidement aux avocats et huissiers qualifiés au Maroc</p>
-            <a href="professionals.php" class="btn">Rechercher un professionnel</a>
+            <a href="<?= $_ENV['base_url'] ?>/professionals" class="btn">Rechercher un professionnel</a>
         </div>
     </header>
 
