@@ -16,10 +16,10 @@ if (!$user) {
             require __DIR__ . '/../nav/admin_navbar.php';
             break;
         case 'avocat':
-            require __DIR__ . '/../nav/admin_navbar.php';
+            require __DIR__ . '/../professionel_dashboard.php';
             break;
         case 'huisser':
-            require __DIR__ . '/../nav/admin_navbar.php';
+            require __DIR__ . '/../professionel_dashboard.php';
             break;
 
         default:

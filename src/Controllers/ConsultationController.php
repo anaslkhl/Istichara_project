@@ -18,7 +18,7 @@ class ConsultationController
 
     public function index()
     {
-        $professionalId = 98; // temporaire
+        $professionalId = $_SESSION['user']['id'];
 
         if (!$professionalId) {
             header('Location: /login');
@@ -26,7 +26,8 @@ class ConsultationController
         }
 
         $consultations = $this->repo->getByProfessional($professionalId);
-        require __DIR__ . '/../public/professional_consultation.php';
+        require __DIR__ . '/../public/professional_consultation.php'
+        ;
     }
 
     public function accept(int $id)
