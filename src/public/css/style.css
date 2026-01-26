@@ -1358,7 +1358,6 @@ textarea:focus {
   }
 }
 
-<<<<<<< HEAD
 /* Professional logout button */
 .btn-logout {
   background-color: #e74c3c; /* red */
@@ -1417,7 +1416,6 @@ textarea:focus {
   border-radius: 20px;
   letter-spacing: 0.5px;
 }
-=======
 /* added for the availability management page by hafid */
 .availability-page {
   font-family: Arial, sans-serif;
@@ -1564,4 +1562,3 @@ textarea:focus {
 }
 /* end of availability page style */
 
->>>>>>> ae70bb51e768e94685fd19c050d03da9e0c47958
