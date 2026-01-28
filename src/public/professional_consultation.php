@@ -10,7 +10,6 @@
 
 <div class="flex min-h-screen">
 
-    <!-- SIDEBAR -->
     <aside class="w-64 bg-slate-900 text-white flex flex-col justify-between">
         <div>
             <h2 class="text-2xl font-bold p-6 border-b border-slate-700">ISTICHARA</h2>
@@ -27,7 +26,6 @@
         </div>
     </aside>
 
-    <!-- MAIN -->
     <main class="flex-1 p-8">
 
         <h1 class="text-3xl font-bold mb-6">💬 Consultations</h1>
@@ -54,22 +52,18 @@
 
         <tr class="border-b">
 
-            <!-- CLIENT -->
             <td class="p-3">
                 <?= htmlspecialchars($c['client_name']) ?>
             </td>
 
-            <!-- DATE -->
             <td class="p-3">
                 <?= htmlspecialchars($c['date_debut']) ?>
             </td>
 
-            <!-- DUREE -->
             <td class="p-3">
                 <?= $duree ?> min
             </td>
 
-            <!-- STATUT -->
             <td class="p-3">
                 <?php if ($c['statut'] === 'en_attente'): ?>
                     <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">
@@ -88,7 +82,6 @@
                 <?php endif; ?>
             </td>
 
-            <!-- ACTIONS -->
             <td class="p-3 text-center flex gap-2 justify-center">
 
                 <?php if ($c['statut'] === 'en_attente'): ?>
