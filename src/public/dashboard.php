@@ -2,6 +2,8 @@
 
 use Services\personService;
 
+require_once __DIR__ . '/layout/app.php';
+
 require_once "../autoload.php";
 
 $service = new personService();
@@ -10,11 +12,10 @@ $service = new personService();
 $totalAvocats   = $service->countByType('avocat');
 $totalHuissiers = $service->countByType('huissier');
 
-$byCity     = $service->getByCity();
+$byCity = $service->getByCity();
 
 $topAvocats = $service->topAvocats();
 
-///statistique 
 
 $total_houres_worked = $service->houres_worked();
 $chiffres_affaires = $service->chiffre_afaires();
@@ -33,7 +34,6 @@ $total_reservation = $service->total_reservation();
 
 <body>
 
-    <?php require_once "navbar.php"; ?>
 
     <div class="dash-wrapper">
 
@@ -52,7 +52,7 @@ $total_reservation = $service->total_reservation();
             </div>
             <div class="dash-card dash-card-red">
                 <p class="dash-card-label">Cumul des heures de travail effectuées</p>
-                <p class="dash-card-value"><?= intval($total_houres_worked) ."h" . ($total_houres_worked-intval($total_houres_worked))*60 . "min" ?> </p>
+                <p class="dash-card-value"><?= intval($total_houres_worked) . "h" . ($total_houres_worked - intval($total_houres_worked)) * 60 . "min" ?> </p>
             </div>
             <div class="dash-card dash-card-yellow">
                 <p class="dash-card-label">Totale de chiffres D'affaires</p>
@@ -113,6 +113,8 @@ $total_reservation = $service->total_reservation();
         </div>
 
     </div>
+
+    <script src="./script/script.js"></script>
 
     <?php require_once "footer.php"; ?>
 

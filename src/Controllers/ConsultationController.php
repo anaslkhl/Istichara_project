@@ -20,13 +20,15 @@ class ConsultationController
     {
         $professionalId = 98; 
 
+
         if (!$professionalId) {
             header('Location: /login');
             exit;
         }
 
         $consultations = $this->repo->getByProfessional($professionalId);
-        require __DIR__ . '/../public/professional_consultation.php';
+        require __DIR__ . '/../public/professional_consultation.php'
+        ;
     }
 
     public function accept(int $id)

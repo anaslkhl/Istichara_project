@@ -307,7 +307,7 @@ if ($isEdit) {
             <h2><i class="fas fa-sign-in-alt"></i> Se Connecter</h2>
             <p>Accédez à votre compte ISTICHARA</p>
         </div>
-        <form id="loginForm" class="login-form">
+        <form id="loginForm" class="login-form" action="/login" method="POST">
             <div class="form-group">
                 <label for="login_email"><i class="fas fa-envelope"></i> Email</label>
                 <input type="email" id="login_email" name="email" required placeholder="votre@email.com">
@@ -328,8 +328,10 @@ if ($isEdit) {
                     <a href="#" class="forgot-password">Mot de passe oublié ?</a>
                 </div>
             </div>
-            <div class="form-footer">
-                <button type="button" id="inscrire">S'inscrire</button>
+            <div class="form-group">
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                </button>
             </div>
         </form>
     </div>

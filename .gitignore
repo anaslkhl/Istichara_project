@@ -1,2 +1,4 @@
 /.htaccess
 src/env.php
+vendor
+src/public/index.php

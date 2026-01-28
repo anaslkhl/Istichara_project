@@ -3,6 +3,7 @@
 namespace Repository;
 
 use Connection\Database;
+use Exception;
 use PDO;
 use PDOException;
 
@@ -58,8 +59,19 @@ class personRepository
     {
         $conn = $this->db;
 
-        $stmt = $conn->prepare('SELECT * FROM person');
+        $stmt = $conn->prepare('SELECT * FROM person
+                                WHERE role IN ("avocat", "huisser")');
         $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getAllClients()
+    {
+        $conn = $this->db;
+
+        $stmt = $conn->prepare('SELECT * FROM person WHERE role = ?');
+
+        $stmt->execute(['client']);
         return $stmt->fetchAll();
     }
 
@@ -195,59 +207,78 @@ class personRepository
         return $stmt->fetchAll();
     }
     ///admin statistique task 
-    public function chifresAffaires(){
-        $stmt =$this->db->prepare("select sum((timestampdiff(minute,date_debut, date_fin)/60)*person.tarif) as chiffre from reservation JOIN person on person.id = reservation.professionnel_id ") ;
+    public function chifresAffaires()
+    {
+        $stmt = $this->db->prepare("select sum((timestampdiff(minute,date_debut, date_fin)/60)*person.tarif) as chiffre from reservation JOIN person on person.id = reservation.professionnel_id ");
         $stmt->execute();
         return $stmt->fetchColumn();
     }
-    public function total_houres_worked(){
-        $stmt =$this->db->prepare ("select sum(timestampdiff(minute,date_debut, date_fin)/60) from reservation where statut = 'valide'");
+    public function total_houres_worked()
+    {
+        $stmt = $this->db->prepare("select sum(timestampdiff(minute,date_debut, date_fin)/60) from reservation where statut = 'valide'");
         $stmt->execute();
         return $stmt->fetchColumn();
-
     }
-    public function unique_clients(){
+    public function unique_clients()
+    {
         $stmt = $this->db->prepare("select count(distinct client_id) from reservation where statut = 'valide'");
         $stmt->execute();
         return $stmt->fetchColumn();
     }
-    public function totale_resarvation(){
+    public function totale_resarvation()
+    {
         $stmt = $this->db->prepare("select count(*) as total from reservation");
         $stmt->execute();
         return $stmt->fetchColumn();
     }
     ////professionnel statique task
 
-    public function total_consultation(){
-        $stmt =$this->db->prepare ("select count(*) as total_consultation from reservation where statut='valide' and professionnel_id=98");
+    public function total_consultation()
+    {
+        $stmt = $this->db->prepare("select count(*) as total_consultation from reservation where statut='valide' and professionnel_id=98");
         $stmt->execute();
         return $stmt->fetchColumn();
     }
-    public function total_houres_worked_person(){
-        $stmt= $this->db->prepare("select sum(timestampdiff(minute, date_debut,date_fin)/60) as total_houres_worked from reservation where professionnel_id = 96  " );
+    public function total_houres_worked_person()
+    {
+        $stmt = $this->db->prepare("select sum(timestampdiff(minute, date_debut,date_fin)/60) as total_houres_worked from reservation where professionnel_id = 96  ");
         $stmt->execute();
         return $stmt->fetchColumn();
     }
-    public function chiffres_affaires_person(){
+    public function chiffres_affaires_person()
+    {
         $stmt = $this->db->prepare("select sum(timestampdiff(hour,date_debut,date_fin)*person.tarif) as chiffre_affaires from reservation join person on person.id = reservation.professionnel_id where professionnel_id=96 ");
         $stmt->execute();
         return $stmt->fetchColumn();
     }
-    public function total_demandes_attendus(){
+    public function total_demandes_attendus()
+    {
         $stmt = $this->db->prepare("select count(*) as total_demandes_attendus from reservation where statut = 'en_attente' and professionnel_id=97");
         $stmt->execute();
         return $stmt->fetchColumn();
     }
     /// professionnel profile views task 
-    
-    public function viewers_profile(){
-        $id=$_GET['id'];
-        if (isset($_GET[$_ENV['base_url'].'/showprofile?id'])) {
-            $stmt =$this->db->prepare("update person set viewers = viewers+1 where id=:id  ");
-            $stmt->execute([':id'=>$id]);
+
+    public function viewers_profile()
+    {
+        $id = $_GET['id'];
+        if (isset($_GET[$_ENV['base_url'] . '/showprofile?id'])) {
+            $stmt = $this->db->prepare("update person set viewers = viewers+1 where id=:id  ");
+            $stmt->execute([':id' => $id]);
         }
-        
     }
 
-    
+    public function getByEmail($mail)
+    {
+
+        try {
+            $conn = $this->db;
+            $stmt = $conn->prepare('SELECT * FROM person WHERE email = ?');
+            $stmt->execute([$mail]);
+            return $stmt->fetch();
+        } catch (Exception $er) {
+            print 'errOR : ' . $er->getMessage();
+            die;
+        }
+    }
 }
