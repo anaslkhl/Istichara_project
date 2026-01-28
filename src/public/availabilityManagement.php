@@ -1,3 +1,7 @@
+<?php 
+require_once __DIR__ . '/layout/app.php';
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -10,8 +14,6 @@
 
 <body>
 
-    <?php require_once "./navbar.php";
-    ?>
 
     <div class="availability-page">
         <div class="availability-container">

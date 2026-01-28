@@ -61,7 +61,16 @@ class personController
 
     public function dashboard()
     {
-        require __DIR__ . '/../public/dashboard.php';
+        $this->render('dashboard');
+        exit;
+    }
+
+    private function render($view, $data = [])
+    {
+        extract($data);
+        // require_once __DIR__ . '/../public/header.php';
+        require __DIR__ . '/../public/' . $view . '.php'; // page content
+        // require_once __DIR__ . '/../public/footer.php';
     }
 
     public function edit($id)
@@ -75,7 +84,7 @@ class personController
 
     public function main()
     {
-        require __DIR__ . '/../public/main.php';
+        $this->render('main');
     }
 
     public function store()
@@ -86,23 +95,23 @@ class personController
 
     public function clientInscription()
     {
-        require __DIR__ . '/../public/clientInscription.php';
+        $this->render('clientInscription');
     }
     public function professional_dashboared()
     {
-        require __DIR__ . '/../public/professionel_dashboard.php';
+        $this->render('professional_dashboared');
     }
     public function professional_reservation()
     {
-        require __DIR__ . '/../public/professional_reservation.php';
+        $this->render('professional_reservation');
     }
     public function professional_consultation()
     {
-        require __DIR__ . '/../public/professional_consultation.php';
+        $this->render('professional_consultation');
     }
     public function showprofile()
     {
-        require __DIR__ . '/../public/showprofile.php';
+        $this->render('showprofile');
     }
 
     public function getAllClients()
