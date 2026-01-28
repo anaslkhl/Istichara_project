@@ -62,9 +62,9 @@ if (session_status() === PHP_SESSION_NONE) {
                             <p><strong>Consultation en ligne:</strong> <?= ucfirst($person['consultate_online']) ?></p>
                         <?php endif; ?>
                     </div>
-                    <form class="card-footer" method="POST" action="delete">
+                    <form class="card-footer" method="POST" action="addReservations">
                         <input type="hidden" name="delete" value="<?= htmlentities($person['id']) ?>">
-                        <button type="submit" class="del">Delete</button>
+                        <button type="submit" class="del" onclick="openEditModal()">Reserver</button>
                         <a href="/showprofile?id=<?= $person['id'] ?>" class="btn-profile">View</a>
                     </form>
 
@@ -72,6 +72,62 @@ if (session_status() === PHP_SESSION_NONE) {
             <?php endforeach; ?>
         </div>
 
+        <div id="editModal" class="availability-modal">
+                <div class="availability-modal-content">
+                    <h3>Modifier la disponibilité</h3>
+
+                    <form method="post" action="<?= $_ENV['base_url'] ?>/updateAvailability">
+                        <div class="availability-form-group">
+
+                            <!-- for the row id -->
+                            <input type="hidden" name="rowId" id="edit_row_id">
+
+                            <div>
+                                <label>Jour</label>
+                                <select id="edit_day" name="new_day" class="availability-select" required>
+                                    <option value="lundi">lundi</option>
+                                    <option value="mardi">mardi</option>
+                                    <option value="mercredi">mercredi</option>
+                                    <option value="jeudi">jeudi</option>
+                                    <option value="vendredi">vendredi</option>
+                                    <option value="samedi">samedi</option>
+                                    <option value="dimanche">dimanche</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label>Heure de début</label>
+                                <select id="edit_start" name="new_start_hour" class="availability-select" required>
+                                    <?php
+                                    for ($h = 8; $h < 20; $h++) {
+                                        $hour = str_pad($h, 2, '0', STR_PAD_LEFT);
+                                        echo "<option value=\"$hour\">$hour</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label>Heure de fin</label required>
+                                <select id="edit_end" name="new_end_hour" class="availability-select">
+                                    <?php
+                                    for ($h = 9; $h < 21; $h++) {
+                                        $hour = str_pad($h, 2, '0', STR_PAD_LEFT);
+                                        echo "<option value=\"$hour\">$hour</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-actions">
+                            <button type="button" class="availability-button" onclick="closeEditModal()">Annuler</button>
+                            <button type="submit" class="availability-button">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
         <div class="pagination">
             <a href="#">«</a>
@@ -93,6 +149,16 @@ if (session_status() === PHP_SESSION_NONE) {
             nav.classList.toggle('nav-active');
             burger.classList.toggle('toggle');
         });
+
+        function openEditModal() {
+            
+                document.getElementById('editModal').style.display = 'flex';
+            }
+
+
+            function closeEditModal() {
+                document.getElementById('editModal').style.display = 'none';
+            }
     </script>
 
     <script src="./script//script.js"></script>

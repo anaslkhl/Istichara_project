@@ -17,7 +17,8 @@
 
             <nav class="flex flex-col p-4 gap-2">
                 <a href="professional_dashboard" class="hover:bg-slate-800 px-4 py-3 rounded-lg">📊 Statistiques</a>
-                <a href="professional_reservation" class="hover:bg-slate-800 px-4 py-3 rounded-lg">📅 Reservations</a>
+                <a href="availability" class="hover:bg-slate-800 px-4 py-3 rounded-lg">🕒 availability</a>
+                <a href="reservations" class="hover:bg-slate-800 px-4 py-3 rounded-lg">📅 Reservations</a>
                 <a href="professional_consultation" class="bg-slate-800 px-4 py-3 rounded-lg">💬 Consultations</a>
             </nav>
         </div>

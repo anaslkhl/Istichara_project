@@ -5,6 +5,8 @@
         <ul class="nav-links">
             <li><a href="<?= $_ENV['base_url'] ?>/main">Home</a></li>
             <li><a href="<?= $_ENV['base_url'] ?>/form">Login/Singup</a></li>
+            <li><a href="<?= $_ENV['base_url'] ?>/availability">availabilityManagement</a></li>
+            <li><a href="<?= $_ENV['base_url'] ?>/dashboard">dashboard</a></li>
             <!-- <li><a href="<?= $_ENV['base_url'] ?>/logout" style="background-color: red;border-radius: 5px;">Logout</a></li> -->
 
         </ul>

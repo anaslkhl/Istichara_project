@@ -19,8 +19,12 @@ $router->get('/huisser', 'huisserController@huisser');
 $router->get('/person', 'personController@person');
 
 
-$router->get('/professional_dashboared', 'personController@professional_dashboared');
-$router->get('/professional_reservation', 'personController@professional_reservation');
+$router->get('/professional_dashboard', 'personController@professional_dashboared');
+$router->get('/reservations', 'reservationController@reservations');
+$router->get('/acceptReservations', 'reservationController@acceptReservation');
+$router->get('/rejectReservations', 'reservationController@rejectReservation');
+$router->get('/addReservations', 'reservationController@addReservation');
+$router->get('/removeReservations', 'reservationController@removeReservation');
 $router->get('/showprofile', 'personController@showprofile');
 $router->get('/availability', 'availabilityController@availability');
 $router->post('/insertAvailability', 'availabilityController@insertAvailability');

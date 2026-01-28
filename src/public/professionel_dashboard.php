@@ -40,7 +40,10 @@ $total_demandes_attendus = $service->total_demandes_attendus();
                 <a href="" class="bg-slate-800 px-4 py-3 rounded-lg">
                     📊 Statistiques
                 </a>
-                <a href="professional_reservation" class="hover:bg-slate-800 px-4 py-3 rounded-lg">
+                <a href="availability" class="hover:bg-slate-800 px-4 py-3 rounded-lg">
+                    🕒 availability
+                </a>
+                <a href="reservations" class="hover:bg-slate-800 px-4 py-3 rounded-lg">
                     📅 Reservations
                 </a>
                 <a href="professional_consultation" class="hover:bg-slate-800 px-4 py-3 rounded-lg">
@@ -140,8 +143,6 @@ $total_demandes_attendus = $service->total_demandes_attendus();
             </div>
 
         </main>
-
-        <?php require_once "footer.php"; ?>
 
     </div>
 </div>

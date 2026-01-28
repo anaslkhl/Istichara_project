@@ -7,8 +7,7 @@ use PDO;
 use PDOException;
 
 
-class availabilityRepository
-{
+class availabilityRepository {
 
     private ?PDO $db;
 
