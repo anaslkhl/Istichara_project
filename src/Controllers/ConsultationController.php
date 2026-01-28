@@ -18,7 +18,7 @@ class ConsultationController
 
     public function index()
     {
-        $professionalId = 98; // temporaire
+        $professionalId = 98; 
 
         if (!$professionalId) {
             header('Location: /login');
@@ -36,19 +36,20 @@ class ConsultationController
             exit;
         }
 
-        // 🔹 Génération du lien Zoom
-        $meetingLink = $this->zoom->createMeeting(
-            'Consultation juridique',
-            date('Y-m-d\TH:i:s')
-        );
+        try {
+            $meetingLink = $this->zoom->createMeeting(
+                'Consultation juridique',
+                date('Y-m-d\TH:i:s')
+            );
+        } catch (\Exception $e) {
+         $meetingLink = 'https://meet.jit.si/consultation_' . uniqid();
+        }
 
-        // 🔹 Sauvegarde
         $this->repo->accept($id, $meetingLink);
 
         header('Location: /professional_consultation');
         exit;
     }
-
     public function reject(int $id)
     {
         if (!$id) {

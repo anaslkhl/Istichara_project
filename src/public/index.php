@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../env.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Dotenv\Dotenv;
@@ -12,18 +13,17 @@ require_once __DIR__ . '/../autoload.php';
 
 
 
-// 3️⃣ Charger le router
 require_once __DIR__ . '/../Routing/Routing.php';
 
-// 4️⃣ Récupérer l’URI
+
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
 
-// Supprimer les query params
+
 if (($pos = strpos($uri, '?')) !== false) {
     $uri = substr($uri, 0, $pos);
 }
 
-// Corriger les chemins Laragon / Docker
+
 $basePaths = [
     '/istichara/public',
     '/Istichara_project',
