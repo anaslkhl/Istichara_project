@@ -18,7 +18,7 @@ class availabilityService
     
     public function insertAvailability()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['day'], $_POST['start_hour'], $_POST['end_hour'])) {
             $day = $_POST['day'];
             $start_hour = $_POST['start_hour'];
             $end_hour = $_POST['end_hour'];

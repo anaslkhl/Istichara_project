@@ -31,21 +31,19 @@ class reservationService {
 
     public function addReservation(int $clienId, int $professionnalId)
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['jour'], $_POST['heure_debut'], $_POST['heure_fin'], $_POST['status'])) {
-            $clienId = $_POST['clienId'];
-            $professionnalId = $_POST['professionnalId'];
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['jour'], $_POST['heure_debut'], $_POST['heure_fin'])) {
             $jour = $_POST['jour'];
             $heure_debut = $_POST['heure_debut'];
             $heure_fin = $_POST['heure_fin'];
-            $status = $_POST['status'];
+    
 
             // small validation 
 
-            $start = (int) $start_hour;
-            $end = (int) $end_hour;
+            $start = (int) $heure_debut;
+            $end = (int) $heure_fin;
 
             if (
-                ($start < $end) && (in_array($status, ['valide', 'en_attente', 'refuse'])) && (in_array($jour, ['lundi', 'mardi', 'mercredi', 'jeudi','vendredi', 'samedi', 'dimanche']))
+                ($start < $end) && (in_array($jour, ['lundi', 'mardi', 'mercredi', 'jeudi','vendredi', 'samedi', 'dimanche']))
                 ) {
 
                 $reservation = [
@@ -53,8 +51,7 @@ class reservationService {
                     "professionnalId"=>$professionnalId,
                     "jour"=> $jour,
                     "heure_debut"=> $heure_debut . ":00:00",
-                    "heure_fin"=> $heure_fin . ":00:00",
-                    "status"=>$status
+                    "heure_fin"=> $heure_fin . ":00:00"
                 ];
 
                 

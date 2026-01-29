@@ -23,7 +23,7 @@ $router->get('/professional_dashboard', 'personController@professional_dashboare
 $router->get('/reservations', 'reservationController@reservations');
 $router->get('/acceptReservations', 'reservationController@acceptReservation');
 $router->get('/rejectReservations', 'reservationController@rejectReservation');
-$router->get('/addReservations', 'reservationController@addReservation');
+$router->post('/addReservation', 'reservationController@addReservation');
 $router->get('/removeReservations', 'reservationController@removeReservation');
 $router->get('/showprofile', 'personController@showprofile');
 $router->get('/availability', 'availabilityController@availability');

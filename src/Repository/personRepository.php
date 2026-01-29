@@ -209,13 +209,13 @@ class personRepository
     ///admin statistique task 
     public function chifresAffaires()
     {
-        $stmt = $this->db->prepare("select sum((timestampdiff(minute,date_debut, date_fin)/60)*person.tarif) as chiffre from reservation JOIN person on person.id = reservation.professionnel_id ");
+        $stmt = $this->db->prepare("select sum((timestampdiff(minute,heure_debut, heure_fin)/60)*person.tarif) as chiffre from reservation JOIN person on person.id = reservation.professionnel_id ");
         $stmt->execute();
         return $stmt->fetchColumn();
     }
     public function total_houres_worked()
     {
-        $stmt = $this->db->prepare("select sum(timestampdiff(minute,date_debut, date_fin)/60) from reservation where statut = 'valide'");
+        $stmt = $this->db->prepare("select sum(timestampdiff(minute,heure_debut, heure_fin)/60) from reservation where statut = 'valide'");
         $stmt->execute();
         return $stmt->fetchColumn();
     }
@@ -241,13 +241,13 @@ class personRepository
     }
     public function total_houres_worked_person()
     {
-        $stmt = $this->db->prepare("select sum(timestampdiff(minute, date_debut,date_fin)/60) as total_houres_worked from reservation where professionnel_id = 96  ");
+        $stmt = $this->db->prepare("select sum(timestampdiff(minute, heure_debut,heure_fin)/60) as total_houres_worked from reservation where professionnel_id = 96  ");
         $stmt->execute();
         return $stmt->fetchColumn();
     }
     public function chiffres_affaires_person()
     {
-        $stmt = $this->db->prepare("select sum(timestampdiff(hour,date_debut,date_fin)*person.tarif) as chiffre_affaires from reservation join person on person.id = reservation.professionnel_id where professionnel_id=96 ");
+        $stmt = $this->db->prepare("select sum(timestampdiff(hour,heure_debut,heure_fin)*person.tarif) as chiffre_affaires from reservation join person on person.id = reservation.professionnel_id where professionnel_id=96 ");
         $stmt->execute();
         return $stmt->fetchColumn();
     }

@@ -38,7 +38,7 @@ class reservationController {
 
     public function addReservation()
     {
-        this->reservationService->addReservation();//clienId and professionnalId
+        $this->reservationService->addReservation(98, 104);//clienId and professionnalId
 
         header('Location: ' . $_ENV['base_url'] . '/professionals');
         exit;
@@ -46,7 +46,7 @@ class reservationController {
 
     public function removeReservation()
     {
-        this->reservationService->removeReservation(); // row id
+        $this->reservationService->removeReservation(); // row id
 
         header('Location: ' . $_ENV['base_url'] . '/professionals');
         exit;

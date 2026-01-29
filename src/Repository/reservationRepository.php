@@ -48,15 +48,13 @@ class reservationRepository
 
     public function addReservation($reservation)
     {
-        $stmt = $this->db->prepare('insert into reservation (client_id, professionnel_id, jour, heure_debut, heure_fin, status
-                                    values(?, ?, ?, ?, ?, ?)');
+        $stmt = $this->db->prepare('insert into reservation (client_id, professionnel_id, jour, heure_debut, heure_fin) values(?, ?, ?, ?, ?)');
         $stmt->execute([
                 $reservation['clienId'],
                 $reservation['professionnalId'],
                 $reservation['jour'],
                 $reservation['heure_debut'],
-                $reservation['heure_fin'],
-                $reservation['status'],
+                $reservation['heure_fin']
         ]);
     }
 

@@ -22,7 +22,7 @@
                 </h2>
 
                 <nav class="flex flex-col p-4 gap-2">
-                    <a href="professional_dashboared" class="hover:bg-slate-800 px-4 py-3 rounded-lg">
+                    <a href="professional_dashboard" class="hover:bg-slate-800 px-4 py-3 rounded-lg">
                         📊 Statistiques
                     </a>
                     <a href="availability" class="hover:bg-slate-800 px-4 py-3 rounded-lg">
